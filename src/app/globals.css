@@ -22,6 +22,38 @@ body {
   font-family: var(--font-lato), sans-serif;
 }
 
+/* ── Lado de dentro: papel granulado premium ── */
+main {
+  /* Grão fino e natural sobre o fundo marfim */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+}
+
+/* ── Lado de fora: mármore suave (hero) ── */
+main > section:first-child {
+  background-color: #EEE8DF;
+  /* Grão mais largo, como cristais de mármore */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.42' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23m)' opacity='0.028'/%3E%3C/svg%3E"),
+    /* Veias diagonais delicadas */
+    repeating-linear-gradient(
+      125deg,
+      transparent 0px, transparent 48px,
+      rgba(255,255,255,0.24) 48px, rgba(255,255,255,0.24) 49px,
+      transparent 49px, transparent 96px
+    ),
+    repeating-linear-gradient(
+      52deg,
+      transparent 0px, transparent 72px,
+      rgba(176,141,87,0.06) 72px, rgba(176,141,87,0.06) 73px,
+      transparent 73px, transparent 144px
+    ),
+    /* Luz suave no centro e sombra quente embaixo */
+    radial-gradient(ellipse at 50% 18%, rgba(255,255,255,0.42) 0%, transparent 52%),
+    radial-gradient(ellipse at 72% 82%, rgba(176,141,87,0.09) 0%, transparent 48%);
+  /* Sombra que separa visualmente a capa do interior */
+  box-shadow: 0 8px 32px rgba(100, 80, 50, 0.16);
+}
+
 button,
 a,
 input {
