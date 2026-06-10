@@ -1,0 +1,272 @@
+@import "tailwindcss";
+
+:root {
+  --color-ivory: #fff9f1;
+  --color-gold: #b08d57;
+  --color-ink: #121212;
+  --color-muted: #444444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--color-ink);
+  background: #eee8df;
+  font-family: var(--font-lato), sans-serif;
+}
+
+button,
+a,
+input {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 4px;
+}
+
+.section {
+  padding: 5rem 1.75rem;
+  text-align: center;
+}
+
+.section-title {
+  margin-top: 0.75rem;
+  font-family: var(--font-playfair), serif;
+  font-size: clamp(2rem, 8vw, 3rem);
+  line-height: 1.15;
+}
+
+.section-copy {
+  max-width: 34rem;
+  margin-inline: auto;
+  margin-top: 1.5rem;
+  color: var(--color-muted);
+  line-height: 1.8;
+}
+
+.eyebrow {
+  color: var(--color-gold);
+  font-size: 0.75rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.button-outline {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-gold);
+  padding: 0.75rem 1.5rem;
+  color: var(--color-gold);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.button-outline:hover {
+  background-color: var(--color-gold);
+  color: var(--color-ivory);
+}
+
+/* ── Keyframes ── */
+
+/* Usam `translate` (prop individual) para liberar `transform` para parallax */
+@keyframes fade-up {
+  from { opacity: 0; translate: 0 22px; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { translate: 0 0; }
+  50%       { translate: 0 -7px; }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; translate: -30px 0; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; translate: 30px 0; }
+  to   { opacity: 1; translate: 0 0; }
+}
+
+@keyframes scale-up {
+  from { opacity: 0; transform: scale(0.93); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes grow-x {
+  to { transform: scaleX(1); }
+}
+
+/* Parallax — usam `transform` (separado de `translate`) */
+@keyframes hero-parallax-logo {
+  to { transform: translateY(-40px) scale(0.9); }
+}
+
+@keyframes hero-parallax-text {
+  to { transform: translateY(-65px); }
+}
+
+@keyframes hero-exit {
+  to { opacity: 0; translate: 0 -30px; }
+}
+
+/* Wipe da esquerda para títulos (estilo Apple) */
+@keyframes clip-reveal {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+
+/* ── Hero: entrada escalonada (fallback sem scroll-driven) ── */
+.hero-eyebrow {
+  animation: fade-up 0.8s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-logo {
+  animation: fade-in 1s 0.3s ease both,
+             float 5s 1.5s ease-in-out infinite;
+}
+
+.hero-title {
+  animation: fade-up 0.9s 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-date {
+  animation: fade-up 0.8s 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ── Barra de progresso ── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-gold);
+  transform-origin: left;
+  transform: scaleX(0);
+  z-index: 100;
+}
+
+/* ── Scroll-driven animations (progressive enhancement) ── */
+@supports (animation-timeline: scroll()) {
+
+  /* Progresso */
+  body::before {
+    animation: grow-x linear both;
+    animation-timeline: scroll();
+  }
+
+  /* Hero: parallax — logo mais devagar, texto mais rápido */
+  .hero-logo {
+    animation:
+      fade-in 1s 0.3s ease both,
+      hero-parallax-logo linear;
+    animation-timeline: auto, scroll();
+    animation-range: auto, 0% 35%;
+  }
+
+  .hero-eyebrow,
+  .hero-title,
+  .hero-date {
+    animation:
+      fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both,
+      hero-parallax-text linear;
+    animation-timeline: auto, scroll();
+    animation-range: auto, 0% 35%;
+  }
+
+  /* Delays de entrada via regras individuais */
+  .hero-eyebrow { animation-delay: 0.1s, 0s; }
+  .hero-title   { animation-delay: 0.65s, 0s; }
+  .hero-date    { animation-delay: 0.95s, 0s; }
+
+  /* Hero: dissolve ao rolar para fora */
+  .hero-content {
+    animation: hero-exit linear both;
+    animation-timeline: view();
+    animation-range: exit 0% exit 50%;
+  }
+
+  /* Eyebrow: desliza da esquerda */
+  .section > .eyebrow {
+    animation: slide-in-left 0.6s linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 22%;
+  }
+
+  /* Título: wipe da esquerda (estilo Apple) */
+  .section > .section-title {
+    animation: clip-reveal 0.6s linear both;
+    animation-timeline: view();
+    animation-range: entry 5% entry 28%;
+  }
+
+  /* Cópia: fade suave */
+  .section > .section-copy {
+    animation: fade-in 0.7s linear both;
+    animation-timeline: view();
+    animation-range: entry 16% entry 42%;
+  }
+
+  /* Botão: sobe por último */
+  .section > .button-outline {
+    animation: fade-up 0.6s linear both;
+    animation-timeline: view();
+    animation-range: entry 24% entry 46%;
+  }
+
+  /* Itens do cronograma: deslizam da direita, stagger natural */
+  .section ol li {
+    animation: slide-in-right 0.6s linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 32%;
+  }
+
+  /* Quote: escala */
+  figure {
+    animation: scale-up 0.8s linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+  }
+
+  /* Footer */
+  main > footer {
+    animation: fade-up 0.7s linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 30%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
