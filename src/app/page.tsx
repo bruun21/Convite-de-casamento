@@ -1,13 +1,15 @@
 import { weddingConfig } from "@/config/wedding";
 import { MapLinks } from "./map-links";
+import { RiceFall } from "./rice-fall";
 
 export default function Home() {
   const { couple, event, content, rsvp } = weddingConfig;
 
   return (
     <main className="mx-auto min-h-screen max-w-3xl overflow-hidden bg-[var(--color-ivory)] text-[var(--color-ink)]">
-      <section className="relative flex min-h-dvh flex-col items-center justify-center px-6 py-20 text-center">
-        <div className="hero-content flex flex-col items-center">
+      <section className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-6 py-20 text-center">
+        <RiceFall />
+        <div className="hero-content relative z-10 flex flex-col items-center">
           <p className="hero-eyebrow mb-8 text-sm tracking-[0.35em] text-[var(--color-gold)] uppercase">
             A & J
           </p>
@@ -28,6 +30,27 @@ export default function Home() {
           >
             {event.fullDate}
           </time>
+        </div>
+      </section>
+
+      {/* Galeria de fotos */}
+      <section className="px-4 pb-14 pt-8 sm:px-7">
+        <div className="photos-grid grid grid-cols-3 gap-2 sm:gap-3">
+          {/* Natal — retrato */}
+          <div className="overflow-hidden rounded shadow-md" style={{ aspectRatio: "3/4", transform: "rotate(-2deg)" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/fotos/foto-1.jpg" alt="Adriele e João Paulo" className="h-full w-full object-cover object-top" />
+          </div>
+          {/* Flores — retrato */}
+          <div className="overflow-hidden rounded shadow-md" style={{ aspectRatio: "3/4", transform: "rotate(0deg)" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/fotos/foto-3.jpg" alt="Adriele e João Paulo" className="h-full w-full object-cover object-top" />
+          </div>
+          {/* Restaurante — selfie */}
+          <div className="overflow-hidden rounded shadow-md" style={{ aspectRatio: "3/4", transform: "rotate(2deg)" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/fotos/foto-2.jpg" alt="Adriele e João Paulo" className="h-full w-full object-cover object-center" />
+          </div>
         </div>
       </section>
 
