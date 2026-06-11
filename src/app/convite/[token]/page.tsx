@@ -53,7 +53,11 @@ export default async function InvitationPage({ params }: PageProps) {
             Responda por cada pessoa deste convite até {rsvp.deadlineLabel}.
           </p>
         </div>
-        <RsvpForm guests={invitation.guests} token={token} />
+        <RsvpForm
+          guests={invitation.guests}
+          token={token}
+          receptionNote={event.reception.receptionNote}
+        />
       </section>
 
       <section className="mt-16 grid gap-8 border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)] py-10 text-center sm:grid-cols-2">

@@ -1,0 +1,264 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f5e6d3 0%, #fff9f1 100%);
+  animation: overlayFadeOut 0.6s 3.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes overlayFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.container {
+  perspective: 1200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.button {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  transition: transform 0.3s ease;
+}
+
+.button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+}
+
+.envelope {
+  position: relative;
+  width: 280px;
+  height: 180px;
+  animation: envelopeRest 2s ease forwards;
+}
+
+.envelope.animating {
+  animation: envelopeFadeOut 1s 2.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes envelopeRest {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes envelopeFadeOut {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+.envelopeBody {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 140px;
+  background: linear-gradient(135deg, #f5e6d3 0%, #faf5f0 100%);
+  border: 2px solid #d4af37;
+  border-top: none;
+  border-radius: 0 0 0.375rem 0.375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(100, 80, 50, 0.15);
+  z-index: 2;
+}
+
+.names {
+  margin: 0;
+  font-family: var(--font-playfair), serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #d4af37;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.envelopeFold {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(135deg, #f5e6d3 0%, #faf5f0 100%);
+  border: 2px solid #d4af37;
+  border-bottom: none;
+  border-radius: 0.375rem 0.375rem 0 0;
+  clip-path: polygon(0 0, 50% 60%, 100% 0);
+  transform-origin: top center;
+  z-index: 1;
+  animation: foldPulse 2s ease forwards;
+}
+
+.envelope.animating .envelopeFold {
+  animation: foldOpen 0.8s 2.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes foldPulse {
+  0%, 100% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(-3deg);
+  }
+}
+
+@keyframes foldOpen {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(-120deg);
+  }
+}
+
+.seal {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 90px;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.6), transparent),
+              linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
+  border: 3px solid #d4af37;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  box-shadow: 0 6px 16px rgba(100, 80, 50, 0.25);
+  animation: sealPulse 2s ease-in-out forwards;
+}
+
+.envelope.animating .seal {
+  animation: sealPulse 2s ease-in-out forwards, sealFlyOff 0.6s 2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+@keyframes sealPulse {
+  0%, 100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.08);
+  }
+}
+
+@keyframes sealFlyOff {
+  from {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1) rotate(0deg);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(120px) translateY(-150px) scale(0.3) rotate(360deg);
+  }
+}
+
+.sealLogo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8px;
+  opacity: 0.85;
+}
+
+.hint {
+  margin: 0;
+  font-family: var(--font-playfair), serif;
+  font-size: 0.875rem;
+  color: #d4af37;
+  letter-spacing: 0.08em;
+  animation: hintPulse 1.5s ease-in-out infinite;
+}
+
+.envelope.animating ~ .hint {
+  animation: none;
+}
+
+@keyframes hintPulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .envelope {
+    width: 240px;
+    height: 155px;
+  }
+
+  .envelopeBody {
+    height: 120px;
+  }
+
+  .envelopeFold {
+    height: 45px;
+  }
+
+  .seal {
+    width: 75px;
+    height: 75px;
+    top: -12px;
+  }
+
+  .names {
+    font-size: 1rem;
+  }
+}
+
+/* Respeitar preferência de redução de movimento */
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .envelope,
+  .envelopeFold,
+  .seal,
+  .hint {
+    animation: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}

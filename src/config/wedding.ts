@@ -16,9 +16,18 @@ export const weddingConfig = {
       lng: -56.1029378,
     },
     reception: {
-      location: "Local a confirmar",
+      location: "Talavera",
+      address: "Cuiabá - MT",
+      // Coordenadas aproximadas — verificar no Google Maps antes de publicar
+      lat: -15.5962,
+      lng: -56.0834,
+      placeUrl:
+        "https://www.google.com/maps/place/talavera/data=!4m2!3m1!1s0x939db3d4ce22a5e1:0xd2ef9def626ced97",
       details:
-        "A recepção será realizada após a cerimônia. O endereço será informado assim que estiver definido.",
+        "Após a cerimônia, celebraremos juntos no Talavera. Acompanhe as atualizações para o endereço completo.",
+      receptionNote:
+        "A festa segue o modelo de consumação — cada pessoa escolhe o que deseja apreciar durante a celebração. Não há consumação obrigatória; o que importa mesmo é a sua companhia.",
+      menuUrl: "https://www.dguests.com.br/cardapio/talavera",
     },
     attire: "Vista-se como preferir — o que celebramos é a sua presença.",
     timeline: [
@@ -26,6 +35,10 @@ export const weddingConfig = {
       { time: "21h", label: "Cumprimentos" },
       { time: "21h30", label: "Recepção e jantar" },
     ],
+  },
+  photos: {
+    // Crie um álbum no Google Fotos → "Colaborar" → copie o link e cole aqui
+    albumUrl: "https://photos.app.goo.gl/BgiV32hhaCRUTqoJ6",
   },
   rsvp: {
     deadline: process.env.RSVP_DEADLINE ?? "2026-06-25T23:59:59-04:00",

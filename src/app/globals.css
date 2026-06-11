@@ -18,39 +18,36 @@ html {
 body {
   margin: 0;
   color: var(--color-ink);
-  background: #eee8df;
+  background-color: #d9cfc2;
+  /* Mármore: turbulência de baixa frequência + veias diagonais + luz suave */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.028' numOctaves='5' seed='8' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23m)' opacity='0.16'/%3E%3C/svg%3E"),
+    repeating-linear-gradient(
+      112deg,
+      transparent 0px, transparent 46px,
+      rgba(255,255,255,0.30) 46px, rgba(255,255,255,0.30) 47px,
+      transparent 47px, transparent 92px
+    ),
+    repeating-linear-gradient(
+      54deg,
+      transparent 0px, transparent 68px,
+      rgba(255,255,255,0.18) 68px, rgba(255,255,255,0.18) 69px,
+      transparent 69px, transparent 136px
+    ),
+    radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.24) 0%, transparent 54%),
+    radial-gradient(ellipse at 72% 74%, rgba(176,141,87,0.11) 0%, transparent 46%);
   font-family: var(--font-lato), sans-serif;
 }
 
 /* ── Lado de dentro: papel granulado premium ── */
 main {
-  /* Grão fino e natural sobre o fundo marfim */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+  /* Grão mais poroso e visível sobre o fundo marfim */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.095'/%3E%3C/svg%3E");
 }
 
-/* ── Lado de fora: mármore suave (hero) ── */
+/* ── Hero: lado de dentro — herda papel granulado do main, sem marble ── */
 main > section:first-child {
-  background-color: #EEE8DF;
-  /* Grão mais largo, como cristais de mármore */
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.42' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23m)' opacity='0.028'/%3E%3C/svg%3E"),
-    /* Veias diagonais delicadas */
-    repeating-linear-gradient(
-      125deg,
-      transparent 0px, transparent 48px,
-      rgba(255,255,255,0.24) 48px, rgba(255,255,255,0.24) 49px,
-      transparent 49px, transparent 96px
-    ),
-    repeating-linear-gradient(
-      52deg,
-      transparent 0px, transparent 72px,
-      rgba(176,141,87,0.06) 72px, rgba(176,141,87,0.06) 73px,
-      transparent 73px, transparent 144px
-    ),
-    /* Luz suave no centro e sombra quente embaixo */
-    radial-gradient(ellipse at 50% 18%, rgba(255,255,255,0.42) 0%, transparent 52%),
-    radial-gradient(ellipse at 72% 82%, rgba(176,141,87,0.09) 0%, transparent 48%);
-  /* Sombra que separa visualmente a capa do interior */
+  /* background herdado do main (ivory + grain) — sem linhas diagonais */
   box-shadow: 0 8px 32px rgba(100, 80, 50, 0.16);
 }
 
@@ -204,22 +201,20 @@ body::before {
   z-index: 100;
 }
 
-/* ── Scroll-driven animations (progressive enhancement) ── */
+/* ── Hero: parallax (progressive enhancement, Chrome 115+) ── */
 @supports (animation-timeline: scroll()) {
 
-  /* Progresso */
   body::before {
     animation: grow-x linear both;
     animation-timeline: scroll();
   }
 
-  /* Hero: parallax — logo mais devagar, texto mais rápido */
   .hero-logo {
     animation:
       fade-in 1s 0.3s ease both,
       hero-parallax-logo linear;
     animation-timeline: auto, scroll();
-    animation-range: auto, 0% 35%;
+    animation-range: auto, 0% 40%;
   }
 
   .hero-eyebrow,
@@ -229,74 +224,68 @@ body::before {
       fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both,
       hero-parallax-text linear;
     animation-timeline: auto, scroll();
-    animation-range: auto, 0% 35%;
+    animation-range: auto, 0% 40%;
   }
 
-  /* Delays de entrada via regras individuais */
   .hero-eyebrow { animation-delay: 0.1s, 0s; }
   .hero-title   { animation-delay: 0.65s, 0s; }
   .hero-date    { animation-delay: 0.95s, 0s; }
 
-  /* Hero: dissolve ao rolar para fora */
   .hero-content {
     animation: hero-exit linear both;
     animation-timeline: view();
-    animation-range: exit 0% exit 50%;
+    animation-range: exit 0% exit 65%;
+  }
+}
+
+/* ── Reveal via IntersectionObserver (todos os browsers) ── */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* Estado inicial: filhos escondidos */
+  [data-reveal]:not([data-visible]) > * {
+    opacity: 0;
+    transform: translateY(22px);
   }
 
-  /* Fotos: cada card entra escalonado */
-  .photos-grid > :nth-child(1) { animation: fade-up 0.6s linear both; animation-timeline: view(); animation-range: entry 0% entry 28%; }
-  .photos-grid > :nth-child(2) { animation: fade-up 0.6s linear both; animation-timeline: view(); animation-range: entry 5% entry 33%; }
-  .photos-grid > :nth-child(3) { animation: fade-up 0.6s linear both; animation-timeline: view(); animation-range: entry 10% entry 38%; }
+  /* Fotos: cada card entra de uma direção */
+  .photos-grid:not([data-visible]) > :nth-child(1) { transform: translateX(-30px); }
+  .photos-grid:not([data-visible]) > :nth-child(2) { transform: translateY(26px); }
+  .photos-grid:not([data-visible]) > :nth-child(3) { transform: translateX(30px); }
 
-  /* Eyebrow: desliza da esquerda */
-  .section > .eyebrow {
-    animation: slide-in-left 0.6s linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 22%;
+  /* Itens do cronograma entram da direita, escondidos antes do reveal */
+  [data-reveal]:not([data-visible]) ol li {
+    opacity: 0;
+    transform: translateX(24px);
   }
 
-  /* Título: wipe da esquerda (estilo Apple) */
-  .section > .section-title {
-    animation: clip-reveal 0.6s linear both;
-    animation-timeline: view();
-    animation-range: entry 5% entry 28%;
+  /* Estado revelado: filhos aparecem em cascata */
+  [data-reveal][data-visible] > * {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity  0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   }
+  [data-reveal][data-visible] > :nth-child(1) { transition-delay: 0s;     }
+  [data-reveal][data-visible] > :nth-child(2) { transition-delay: 0.10s;  }
+  [data-reveal][data-visible] > :nth-child(3) { transition-delay: 0.18s;  }
+  [data-reveal][data-visible] > :nth-child(4) { transition-delay: 0.26s;  }
+  [data-reveal][data-visible] > :nth-child(5) { transition-delay: 0.34s;  }
+  [data-reveal][data-visible] > :nth-child(6) { transition-delay: 0.42s;  }
 
-  /* Cópia: fade suave */
-  .section > .section-copy {
-    animation: fade-in 0.7s linear both;
-    animation-timeline: view();
-    animation-range: entry 16% entry 42%;
+  /* Itens do cronograma: stagger após título/eyebrow */
+  [data-reveal][data-visible] ol li {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity  0.5s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   }
-
-  /* Botão: sobe por último */
-  .section > .button-outline {
-    animation: fade-up 0.6s linear both;
-    animation-timeline: view();
-    animation-range: entry 24% entry 46%;
-  }
-
-  /* Itens do cronograma: deslizam da direita, stagger natural */
-  .section ol li {
-    animation: slide-in-right 0.6s linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 32%;
-  }
-
-  /* Quote: escala */
-  figure {
-    animation: scale-up 0.8s linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 30%;
-  }
-
-  /* Footer */
-  main > footer {
-    animation: fade-up 0.7s linear both;
-    animation-timeline: view();
-    animation-range: entry 0% entry 30%;
-  }
+  [data-reveal][data-visible] ol li:nth-child(1) { transition-delay: 0.28s; }
+  [data-reveal][data-visible] ol li:nth-child(2) { transition-delay: 0.38s; }
+  [data-reveal][data-visible] ol li:nth-child(3) { transition-delay: 0.48s; }
+  [data-reveal][data-visible] ol li:nth-child(4) { transition-delay: 0.58s; }
+  [data-reveal][data-visible] ol li:nth-child(5) { transition-delay: 0.68s; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -310,5 +299,12 @@ body::before {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  /* Revela tudo imediatamente para quem prefere sem movimento */
+  [data-reveal] > *,
+  [data-reveal] ol li {
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

@@ -16,6 +16,7 @@ export const rsvpSchema = z.object({
       z.object({
         id: z.uuid(),
         attendance: attendanceSchema,
+        receptionAttendance: attendanceSchema.optional(),
       })
     )
     .min(1)
@@ -83,7 +84,11 @@ export async function submitRsvp(input: RsvpInput) {
     for (const response of input.guests) {
       await tx
         .update(guests)
-        .set({ attendance: response.attendance, updatedAt: now })
+        .set({
+          attendance: response.attendance,
+          receptionAttendance: response.receptionAttendance ?? null,
+          updatedAt: now,
+        })
         .where(
           and(
             eq(guests.id, response.id),

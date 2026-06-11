@@ -4,11 +4,12 @@ interface MapLinksProps {
   lat: number;
   lng: number;
   name: string;
+  placeUrl?: string;
 }
 
-export function MapLinks({ lat, lng, name }: MapLinksProps) {
+export function MapLinks({ lat, lng, name, placeUrl }: MapLinksProps) {
   const q = encodeURIComponent(name);
-  const googleUrl = `https://maps.google.com/?q=${lat},${lng}`;
+  const googleUrl = placeUrl ?? `https://maps.google.com/?q=${lat},${lng}`;
   const appleMapsUrl = `https://maps.apple.com/?ll=${lat},${lng}&q=${q}`;
   const geoUri = `geo:${lat},${lng}?q=${lat},${lng}(${q})`;
   const wazeUrl = `https://waze.com/ul?ll=${lat},${lng}&navigate=yes`;
@@ -22,7 +23,7 @@ export function MapLinks({ lat, lng, name }: MapLinksProps) {
   }
 
   return (
-    <div className="mt-8 flex flex-col items-center gap-3">
+    <div className="map-links mt-8 flex flex-col items-center gap-3">
       <a
         href={googleUrl}
         target="_blank"

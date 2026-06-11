@@ -33,3 +33,5 @@ desktop.ini
 *.db
 *.sqlite
 exports/
+
+.vercel

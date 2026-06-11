@@ -8,10 +8,11 @@ describe("RSVP form", () => {
     render(
       <RsvpForm
         guests={[
-          { id: "1", name: "Pessoa Um", attendance: null },
-          { id: "2", name: "Pessoa Dois", attendance: "attending" },
+          { id: "1", name: "Pessoa Um", attendance: null, receptionAttendance: null },
+          { id: "2", name: "Pessoa Dois", attendance: "attending", receptionAttendance: null },
         ]}
         token={"a".repeat(32)}
+        receptionNote="A festa segue o modelo de consumação."
       />
     );
 
@@ -21,6 +22,6 @@ describe("RSVP form", () => {
     expect(
       screen.getByRole("group", { name: "Pessoa Dois" })
     ).toBeInTheDocument();
-    expect(screen.getAllByRole("radio")).toHaveLength(4);
+    expect(screen.getAllByRole("radio")).toHaveLength(8);
   });
 });

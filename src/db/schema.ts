@@ -63,6 +63,7 @@ export const guests = pgTable(
     name: text("name").notNull(),
     isPrimary: boolean("is_primary").notNull().default(false),
     attendance: attendanceStatus("attendance"),
+    receptionAttendance: attendanceStatus("reception_attendance"),
     createdAt: timestamp("created_at", { withTimezone: true })
       .notNull()
       .defaultNow(),

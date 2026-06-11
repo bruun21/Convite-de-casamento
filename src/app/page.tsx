@@ -1,12 +1,14 @@
 import { weddingConfig } from "@/config/wedding";
 import { MapLinks } from "./map-links";
 import { RiceFall } from "./rice-fall";
+import { CameraIcon } from "./camera-icon";
 
 export default function Home() {
-  const { couple, event, content, rsvp } = weddingConfig;
+  const { couple, event, content, rsvp, photos } = weddingConfig;
 
   return (
     <main className="mx-auto min-h-screen max-w-3xl overflow-hidden bg-[var(--color-ivory)] text-[var(--color-ink)]">
+      {/* ── Hero ── sem data-reveal (tem animação CSS própria) */}
       <section className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-6 py-20 text-center">
         <RiceFall />
         <div className="hero-content relative z-10 flex flex-col items-center">
@@ -33,20 +35,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Galeria de fotos */}
+      {/* ── Galeria de fotos ── */}
       <section className="px-4 pb-14 pt-8 sm:px-7">
-        <div className="photos-grid grid grid-cols-3 gap-2 sm:gap-3">
-          {/* Natal — retrato */}
+        <div className="photos-grid grid grid-cols-3 gap-2 sm:gap-3" data-reveal>
           <div className="overflow-hidden rounded shadow-md" style={{ aspectRatio: "3/4", transform: "rotate(-2deg)" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/fotos/foto-1.jpg" alt="Adriele e João Paulo" className="h-full w-full object-cover object-top" />
           </div>
-          {/* Flores — retrato */}
-          <div className="overflow-hidden rounded shadow-md" style={{ aspectRatio: "3/4", transform: "rotate(0deg)" }}>
+          <div className="overflow-hidden rounded shadow-md" style={{ aspectRatio: "3/4" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/fotos/foto-3.jpg" alt="Adriele e João Paulo" className="h-full w-full object-cover object-top" />
           </div>
-          {/* Restaurante — selfie */}
           <div className="overflow-hidden rounded shadow-md" style={{ aspectRatio: "3/4", transform: "rotate(2deg)" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/fotos/foto-2.jpg" alt="Adriele e João Paulo" className="h-full w-full object-cover object-center" />
@@ -54,29 +53,32 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section" data-reveal>
         <p className="eyebrow">Nossa união</p>
         <h2 className="section-title">Um encontro de almas</h2>
         <p className="section-copy">{content.invitation}</p>
       </section>
 
-      <figure className="bg-[color:color-mix(in_srgb,var(--color-gold)_7%,transparent)] px-7 py-20 text-center">
+      <figure
+        className="bg-[color:color-mix(in_srgb,var(--color-gold)_7%,transparent)] px-7 py-20 text-center"
+        data-reveal
+      >
         <blockquote className="mx-auto max-w-xl font-[family-name:var(--font-playfair)] text-2xl leading-relaxed italic">
-          “{content.verse}”
+          &ldquo;{content.verse}&rdquo;
         </blockquote>
         <figcaption className="mt-6 text-xs tracking-[0.24em] text-[var(--color-gold)] uppercase">
           {content.verseReference}
         </figcaption>
       </figure>
 
-      <section className="section">
+      <section className="section" data-reveal>
         <p className="eyebrow">Os noivos</p>
         <h2 className="section-title">Nossa história</h2>
         <p className="section-copy">{content.story}</p>
         <p className="section-copy mt-5">{content.gratitude}</p>
       </section>
 
-      <section className="section border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)]">
+      <section className="section border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)]" data-reveal>
         <p className="eyebrow">A cerimônia</p>
         <h2 className="section-title">{event.ceremony.location}</h2>
         <p className="section-copy">{event.ceremony.address}</p>
@@ -87,7 +89,7 @@ export default function Home() {
         />
       </section>
 
-      <section className="grid gap-10 px-7 py-20 text-center sm:grid-cols-3">
+      <section className="grid gap-10 px-7 py-20 text-center sm:grid-cols-3" data-reveal>
         <div>
           <p className="eyebrow">Data</p>
           <p>{event.weekday}</p>
@@ -106,13 +108,41 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section bg-[color:color-mix(in_srgb,var(--color-gold)_7%,transparent)]">
+      <section className="section bg-[color:color-mix(in_srgb,var(--color-gold)_7%,transparent)]" data-reveal>
         <p className="eyebrow">A celebração</p>
         <h2 className="section-title">{event.reception.location}</h2>
         <p className="section-copy">{event.reception.details}</p>
+        <MapLinks
+          lat={event.reception.lat}
+          lng={event.reception.lng}
+          name={event.reception.location}
+          placeUrl={event.reception.placeUrl}
+        />
+        <p className="section-note mx-auto mt-10 max-w-md rounded border border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)] bg-[color:color-mix(in_srgb,var(--color-gold)_6%,var(--color-ivory))] px-6 py-5 text-sm leading-relaxed text-[var(--color-muted)]">
+          {event.reception.receptionNote}
+        </p>
       </section>
 
-      <section className="section">
+      <section className="section border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)]" data-reveal>
+        <p className="eyebrow">Cardápio</p>
+        <h2 className="section-title">O que teremos por lá</h2>
+        <p className="section-copy">
+          O Talavera preparou um cardápio especial para a noite. Confira as
+          opções antes de chegar e já vá de olho no que vai pedir.
+        </p>
+        <div className="mt-10 flex justify-center">
+          <a
+            href={event.reception.menuUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="button-outline"
+          >
+            Ver cardápio completo
+          </a>
+        </div>
+      </section>
+
+      <section className="section" data-reveal>
         <p className="eyebrow">Cronograma</p>
         <h2 className="section-title">O dia do casamento</h2>
         <ol className="mx-auto mt-10 max-w-sm space-y-6 text-left">
@@ -127,7 +157,7 @@ export default function Home() {
         </ol>
       </section>
 
-      <section className="section border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)]">
+      <section className="section border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)]" data-reveal>
         <p className="eyebrow">Confirmação de presença</p>
         <h2 className="section-title">Sua presença é o nosso maior presente</h2>
         <p className="section-copy">
@@ -136,7 +166,32 @@ export default function Home() {
         </p>
       </section>
 
-      <footer className="px-7 py-24 text-center">
+      {/* ── Fotos dos convidados ── */}
+      <section className="section" data-reveal>
+        <div className="flex justify-center">
+          <CameraIcon />
+        </div>
+        <h2 className="section-title mt-4">O olhar de vocês</h2>
+        <p className="section-copy">
+          Esta noite não terá fotógrafo profissional — queremos estar de
+          verdade em cada momento, sem câmeras no meio.
+        </p>
+        <p className="section-copy mt-4">
+          Se você registrar algo especial, adoraríamos guardar. Envie suas
+          fotos direto para nosso álbum compartilhado e elas ficarão com a
+          gente para sempre.
+        </p>
+        <a
+          href={photos.albumUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="button-outline mt-10 inline-flex"
+        >
+          Enviar fotos para o álbum
+        </a>
+      </section>
+
+      <footer className="px-7 py-24 text-center" data-reveal>
         <p className="font-[family-name:var(--font-playfair)] text-4xl text-[var(--color-gold)] italic">
           {content.closing}
         </p>

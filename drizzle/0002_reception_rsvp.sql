@@ -1,0 +1,1 @@
+ALTER TABLE "guests" ADD COLUMN "reception_attendance" "attendance_status";
