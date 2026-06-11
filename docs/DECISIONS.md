@@ -34,12 +34,20 @@ O projeto adapta o fluxo do repositorio local
 compacto, evidencia de mudancas via Git, metricas locais e handoff entre
 sessoes. O modo `yolo` nao sera usado.
 
-### ADR-007 - Database isolado no PostgreSQL local
+### ADR-007 - Database isolado no PostgreSQL local (supersedido)
 
-Desenvolvimento e testes usarao o database `casamento`, pertencente ao role
-`casamento_app`, dentro do container existente `mvp-db-1`. O database
-`casa_capital_dev` nao sera acessado. Nenhum projeto, branch ou credencial Neon
-sera criado ate nova decisao explicita.
+Desenvolvimento e testes usavam o database `casamento` no container `mvp-db-1`.
+**Supersedido em 11/06/2026** pelo ADR-011: o Neon passou a ser o banco ativo
+para convites e RSVPs. O Postgres local permanece disponivel para testes
+isolados, comentando a `DATABASE_URL` no `.env`.
+
+### ADR-011 - Neon ativo como banco de producao
+
+O projeto Neon `ep-purple-glitter-acilk7jz` (sa-east-1) e a fonte de verdade
+para `invitations`, `guests` e `rsvp_events`. Migrations sao aplicadas somente
+a partir deste repositorio (`npm run db:migrate`). O painel
+`Casamento-administracao` consome o mesmo banco e deve usar o mesmo
+`RSVP_TOKEN_PEPPER` para gerar links compativeis com o site.
 
 ## Confirmadas durante a implementacao
 

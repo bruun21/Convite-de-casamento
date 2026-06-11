@@ -1,11 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import Home from "./page";
+import { HomeContent } from "./home-content";
 
-describe("Home page", () => {
+describe("Home content", () => {
   it("renders the couple names as the main heading", () => {
-    render(<Home />);
+    render(<HomeContent />);
 
     expect(
       screen.getByRole("heading", {
@@ -16,7 +16,7 @@ describe("Home page", () => {
   });
 
   it("renders a machine-readable wedding date", () => {
-    const { container } = render(<Home />);
+    const { container } = render(<HomeContent />);
 
     expect(container.querySelector("time[datetime]")).toHaveAttribute(
       "datetime",
@@ -25,7 +25,7 @@ describe("Home page", () => {
   });
 
   it("labels the ceremony location with a heading", () => {
-    render(<Home />);
+    render(<HomeContent />);
 
     expect(
       screen.getByRole("heading", {

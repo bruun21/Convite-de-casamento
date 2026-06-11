@@ -12,16 +12,12 @@ describe("RSVP form", () => {
           { id: "2", name: "Pessoa Dois", attendance: "attending", receptionAttendance: null },
         ]}
         token={"a".repeat(32)}
-        receptionNote="A festa segue o modelo de consumação."
+        receptionNote="Jantar com consumo por adesão. Os noivos compartilham o bolo e os docinhos."
       />
     );
 
-    expect(
-      screen.getByRole("group", { name: "Pessoa Um" })
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("group", { name: "Pessoa Dois" })
-    ).toBeInTheDocument();
+    expect(screen.getAllByRole("group", { name: "Pessoa Um" })).toHaveLength(2);
+    expect(screen.getAllByRole("group", { name: "Pessoa Dois" })).toHaveLength(2);
     expect(screen.getAllByRole("radio")).toHaveLength(8);
   });
 });

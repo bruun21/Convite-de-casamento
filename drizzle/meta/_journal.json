@@ -15,6 +15,13 @@
       "when": 1781121408894,
       "tag": "0001_curvy_queen_noir",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1781186128822,
+      "tag": "0002_neat_mikhail_rasputin",
+      "breakpoints": true
     }
   ]
 }

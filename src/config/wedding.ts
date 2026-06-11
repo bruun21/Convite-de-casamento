@@ -1,3 +1,27 @@
+/**
+ * Texto da recepção — altere `RECEPTION_NOTE_KEY` para "a", "b" ou "c".
+ *
+ * a) Leve e acolhedora (sugestão da noiva)
+ * b) Clara e direta
+ * c) Curta e emocional
+ */
+const RECEPTION_NOTE_KEY = "a" as const;
+
+const receptionNoteOptions = {
+  a: {
+    label: "Leve e acolhedora",
+    text: "Escolhemos celebrar nosso casamento de um jeito leve e descontraído.\n\nDepois da cerimônia, esperamos todos para um jantar no restaurante, com consumo por adesão. Os noivos terão a alegria de compartilhar o bolo e os docinhos preparados para essa ocasião tão especial.\n\nO mais importante para nós é celebrar ao lado de pessoas queridas.",
+  },
+  b: {
+    label: "Clara e direta",
+    text: "Após a cerimônia, nos encontramos no Talavera para um jantar em clima descontraído. O consumo é por adesão — cada convidado escolhe o que deseja pedir no restaurante.\n\nCompartilharemos com vocês o bolo e os docinhos desta celebração. Não há pacote fechado nem consumação obrigatória; o que mais desejamos é a sua presença.",
+  },
+  c: {
+    label: "Curta e emocional",
+    text: "Queremos uma festa leve e íntima: jantar com consumo por adesão, sem obrigatoriedade de pacote fechado. Os noivos oferecem o bolo e os docinhos; o restante, cada um escolhe à vontade.\n\nSua companhia é o presente que mais nos importa.",
+  },
+} as const;
+
 export const weddingConfig = {
   couple: {
     bride: "Adriele",
@@ -24,10 +48,27 @@ export const weddingConfig = {
       placeUrl:
         "https://www.google.com/maps/place/talavera/data=!4m2!3m1!1s0x939db3d4ce22a5e1:0xd2ef9def626ced97",
       details:
-        "Após a cerimônia, celebraremos juntos no Talavera. Acompanhe as atualizações para o endereço completo.",
-      receptionNote:
-        "A festa segue o modelo de consumação — cada pessoa escolhe o que deseja apreciar durante a celebração. Não há consumação obrigatória; o que importa mesmo é a sua companhia.",
+        "Após a cerimônia, celebraremos juntos no Talavera — o mesmo lugar onde nosso pedido de casamento aconteceu.",
+      proposalStory:
+        "Foi aqui, à beira da fonte iluminada e sob o jardim à noite, que dissemos sim ao nosso futuro. Por isso escolhemos o Talavera para receber vocês: um lugar que já guarda o começo da nossa história e que, para nós, é inesquecível.",
+      receptionNoteKey: RECEPTION_NOTE_KEY,
+      receptionNoteOptions,
+      receptionNote: receptionNoteOptions[RECEPTION_NOTE_KEY].text,
       menuUrl: "https://www.dguests.com.br/cardapio/talavera",
+      photos: [
+        {
+          src: "/fotos/talavera/20240608_205731.jpg",
+          alt: "Pedido de casamento à mesa, de mãos dadas, com a fonte iluminada ao fundo",
+        },
+        {
+          src: "/fotos/talavera/20240608_205644.jpg",
+          alt: "Alianças sobre o cardápio do Talavera, no dia do pedido de casamento",
+        },
+        {
+          src: "/fotos/talavera/20240608_215916.jpg",
+          alt: "Casal celebrando o pedido de casamento no jardim do Talavera",
+        },
+      ],
     },
     attire: "Vista-se como preferir — o que celebramos é a sua presença.",
     timeline: [
@@ -49,7 +90,7 @@ export const weddingConfig = {
       "Convidamos você para testemunhar o momento em que nossas vidas se tornam uma só jornada.",
     verse:
       "Grava-me como selo sobre o teu coração, pois o amor é forte como a morte. Nem as grandes águas podem apagar o amor, nem os rios submergí-lo.",
-    verseReference: "Cantares 8:6-7",
+    verseReference: "Cânticos 8:6-7",
     story:
       "Nossa história foi escrita com carinho e cumplicidade. Hoje, celebramos não apenas um contrato, mas a promessa de uma vida inteira de respeito, risadas e crescimento mútuo.",
     gratitude:

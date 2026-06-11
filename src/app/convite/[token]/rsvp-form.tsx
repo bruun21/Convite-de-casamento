@@ -10,7 +10,7 @@ interface Guest {
 }
 
 interface RsvpFormProps {
-  token: string;
+  token?: string;
   guests: Guest[];
   receptionNote: string;
 }
@@ -60,7 +60,7 @@ export function RsvpForm({ token, guests, receptionNote }: RsvpFormProps) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          token,
+          ...(token ? { token } : {}),
           website: formData.get("website")?.toString() ?? "",
           guests: guests.map((g) => ({
             id: g.id,
@@ -148,7 +148,7 @@ export function RsvpForm({ token, guests, receptionNote }: RsvpFormProps) {
           <span className="h-px flex-1 bg-[color:color-mix(in_srgb,var(--color-gold)_30%,transparent)]" />
         </div>
 
-        <p className="mb-6 rounded border border-[color:color-mix(in_srgb,var(--color-gold)_20%,transparent)] bg-[color:color-mix(in_srgb,var(--color-gold)_6%,white)] px-5 py-4 text-sm leading-relaxed text-[var(--color-muted)]">
+        <p className="mb-6 whitespace-pre-line rounded border border-[color:color-mix(in_srgb,var(--color-gold)_20%,transparent)] bg-[color:color-mix(in_srgb,var(--color-gold)_6%,white)] px-5 py-4 text-sm leading-relaxed text-[var(--color-muted)]">
           {receptionNote}
         </p>
 

@@ -10,7 +10,7 @@ import { hashToken, tokenSchema } from "@/lib/tokens";
 const attendanceSchema = z.enum(["attending", "declined"]);
 
 export const rsvpSchema = z.object({
-  token: tokenSchema,
+  token: tokenSchema.optional(),
   guests: z
     .array(
       z.object({
@@ -49,6 +49,13 @@ export async function getInvitationByToken(token: string) {
   });
 }
 
+export async function getInvitationById(invitationId: string) {
+  return db.query.invitations.findFirst({
+    where: eq(invitations.id, invitationId),
+    with: { guests: true },
+  });
+}
+
 export async function markInvitationViewed(invitationId: string) {
   await db
     .update(invitations)
@@ -58,12 +65,20 @@ export async function markInvitationViewed(invitationId: string) {
     );
 }
 
-export async function submitRsvp(input: RsvpInput) {
+export async function submitRsvp(
+  input: RsvpInput,
+  invitationIdFromSession?: string | null
+) {
   if (!isDeadlineOpen(weddingConfig.rsvp.deadline)) {
     throw new RsvpError("expired");
   }
 
-  const invitation = await getInvitationByToken(input.token);
+  const invitation = input.token
+    ? await getInvitationByToken(input.token)
+    : invitationIdFromSession
+      ? await getInvitationById(invitationIdFromSession)
+      : null;
+
   if (!invitation) {
     throw new RsvpError("not_found");
   }

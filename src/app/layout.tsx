@@ -3,7 +3,6 @@ import { Lato, Playfair_Display } from "next/font/google";
 
 import "./globals.css";
 import { ScrollReveal } from "./scroll-reveal";
-import { EnvelopeIntro } from "./envelope-intro";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -55,7 +54,6 @@ export default function RootLayout({
   return (
     <html className={`${playfair.variable} ${lato.variable}`} lang="pt-BR">
       <body suppressHydrationWarning>
-        <EnvelopeIntro />
         {children}
         <ScrollReveal />
       </body>

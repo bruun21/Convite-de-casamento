@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
+import { readInviteAccessInvitationId } from "@/lib/invite-access";
 import { isRateLimited } from "@/lib/rate-limit";
 import { RsvpError, rsvpSchema, submitRsvp } from "@/lib/rsvp";
 
@@ -17,10 +18,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true });
   }
 
+  const sessionInvitationId = await readInviteAccessInvitationId();
+  const rateLimitKey =
+    parsed.data.token ?? sessionInvitationId ?? "anonymous";
+
+  if (!parsed.data.token && !sessionInvitationId) {
+    return NextResponse.json(
+      { error: "Não foi possível validar o acesso ao convite." },
+      { status: 401 }
+    );
+  }
+
   const forwardedFor = request.headers.get("x-forwarded-for");
   const ip = forwardedFor?.split(",")[0]?.trim() ?? "unknown";
 
-  if (isRateLimited(parsed.data.token, ip)) {
+  if (isRateLimited(rateLimitKey, ip)) {
     return NextResponse.json(
       { error: "Muitas tentativas. Aguarde alguns minutos." },
       { status: 429 }
@@ -28,7 +40,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    await submitRsvp(parsed.data);
+    await submitRsvp(parsed.data, sessionInvitationId);
     return NextResponse.json({ success: true });
   } catch (error) {
     if (error instanceof RsvpError) {

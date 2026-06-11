@@ -272,6 +272,10 @@ body::before {
   [data-reveal][data-visible] > :nth-child(4) { transition-delay: 0.26s;  }
   [data-reveal][data-visible] > :nth-child(5) { transition-delay: 0.34s;  }
   [data-reveal][data-visible] > :nth-child(6) { transition-delay: 0.42s;  }
+  [data-reveal][data-visible] > :nth-child(7) { transition-delay: 0.48s;  }
+  [data-reveal][data-visible] > :nth-child(8) { transition-delay: 0.54s;  }
+  [data-reveal][data-visible] > :nth-child(9) { transition-delay: 0.60s;  }
+  [data-reveal][data-visible] > :nth-child(n+10) { transition-delay: 0.66s;  }
 
   /* Itens do cronograma: stagger após título/eyebrow */
   [data-reveal][data-visible] ol li {

@@ -20,7 +20,8 @@ Legenda: `P0` necessario para lancamento, `P1` importante, `P2` evolucao.
 - [x] `P0` Configurar variaveis de ambiente sem credenciais de producao no Git.
 - [x] `P0` Configurar e validar database PostgreSQL local isolado.
 - [x] `P0` Configurar Drizzle e migrations.
-- [ ] `P1` Criar projeto/branch Neon somente quando preview for aprovado.
+- [x] `P0` Configurar Neon como banco ativo (migrations + convite de teste).
+- [ ] `P1` Criar branch Neon de preview separada quando deploy for aprovado.
 - [ ] `P0` Configurar projeto Vercel e deploy de preview.
 
 ## Experiencia publica
