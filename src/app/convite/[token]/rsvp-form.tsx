@@ -13,13 +13,21 @@ interface RsvpFormProps {
   token?: string;
   guests: Guest[];
   receptionNote: string;
+  extraCompanionCount?: number | null;
+  maxExtraCompanions?: number;
 }
 
 type Attendance = "attending" | "declined";
 
 type GuestResponses = Record<string, { ceremony: Attendance | null; reception: Attendance | null }>;
 
-export function RsvpForm({ token, guests, receptionNote }: RsvpFormProps) {
+export function RsvpForm({
+  token,
+  guests,
+  receptionNote,
+  extraCompanionCount = null,
+  maxExtraCompanions = 5,
+}: RsvpFormProps) {
   const [responses, setResponses] = useState<GuestResponses>(
     Object.fromEntries(
       guests.map((g) => [
@@ -30,6 +38,12 @@ export function RsvpForm({ token, guests, receptionNote }: RsvpFormProps) {
         },
       ])
     )
+  );
+  const [bringingCompanion, setBringingCompanion] = useState<boolean | null>(
+    extraCompanionCount === null ? null : extraCompanionCount > 0
+  );
+  const [companionCount, setCompanionCount] = useState(
+    extraCompanionCount && extraCompanionCount > 0 ? extraCompanionCount : 1
   );
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -51,6 +65,12 @@ export function RsvpForm({ token, guests, receptionNote }: RsvpFormProps) {
       return;
     }
 
+    if (bringingCompanion === null) {
+      setStatus("error");
+      setErrorMessage("Informe se você vai levar acompanhante(s).");
+      return;
+    }
+
     const formData = new FormData(event.currentTarget);
     setStatus("submitting");
     setErrorMessage("");
@@ -67,6 +87,7 @@ export function RsvpForm({ token, guests, receptionNote }: RsvpFormProps) {
             attendance: responses[g.id].ceremony,
             receptionAttendance: responses[g.id].reception ?? undefined,
           })),
+          extraCompanionCount: bringingCompanion ? companionCount : 0,
         }),
       });
       const data = (await response.json()) as { success?: boolean; error?: string };
@@ -176,6 +197,68 @@ export function RsvpForm({ token, guests, receptionNote }: RsvpFormProps) {
             </fieldset>
           ))}
         </div>
+      </div>
+
+      {/* ── Acompanhantes ── */}
+      <div>
+        <div className="mb-6 flex items-center gap-3">
+          <span className="h-px flex-1 bg-[color:color-mix(in_srgb,var(--color-gold)_30%,transparent)]" />
+          <p className="eyebrow">Acompanhantes</p>
+          <span className="h-px flex-1 bg-[color:color-mix(in_srgb,var(--color-gold)_30%,transparent)]" />
+        </div>
+
+        <p className="mb-6 text-sm leading-relaxed text-[var(--color-muted)]">
+          Além das pessoas listadas acima, alguém mais virá com você?
+        </p>
+
+        <fieldset>
+          <legend className="sr-only">Vai levar acompanhante?</legend>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {(
+              [
+                { value: false, label: "Não, vou sozinho(a)" },
+                { value: true, label: "Sim, vou levar acompanhante(s)" },
+              ] as const
+            ).map(({ value, label }) => (
+              <label
+                className="flex min-h-12 cursor-pointer items-center gap-3 border border-stone-300 px-4 has-checked:border-[var(--color-gold)] has-checked:bg-[color:color-mix(in_srgb,var(--color-gold)_10%,white)]"
+                key={String(value)}
+              >
+                <input
+                  checked={bringingCompanion === value}
+                  name="bringing-companion"
+                  onChange={() => setBringingCompanion(value)}
+                  required
+                  type="radio"
+                  value={value ? "yes" : "no"}
+                />
+                <span>{label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        {bringingCompanion && (
+          <div className="mt-6">
+            <label className="mb-2 block text-sm font-bold" htmlFor="companion-count">
+              Quantos acompanhantes?
+            </label>
+            <select
+              className="min-h-12 w-full border border-stone-300 bg-white px-4 text-sm"
+              id="companion-count"
+              onChange={(event) => setCompanionCount(Number(event.target.value))}
+              value={companionCount}
+            >
+              {Array.from({ length: maxExtraCompanions }, (_, index) => index + 1).map(
+                (count) => (
+                  <option key={count} value={count}>
+                    {count} {count === 1 ? "acompanhante" : "acompanhantes"}
+                  </option>
+                )
+              )}
+            </select>
+          </div>
+        )}
       </div>
 
       {status === "error" && (

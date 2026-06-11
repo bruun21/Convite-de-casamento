@@ -21,6 +21,11 @@ export const rsvpSchema = z.object({
     )
     .min(1)
     .max(20),
+  extraCompanionCount: z
+    .number()
+    .int()
+    .min(0)
+    .max(weddingConfig.rsvp.maxExtraCompanions),
   website: z.string().max(200).optional().default(""),
 });
 
@@ -116,6 +121,7 @@ export async function submitRsvp(
       .update(invitations)
       .set({
         status: "responded",
+        extraCompanionCount: input.extraCompanionCount,
         firstRespondedAt: invitation.firstRespondedAt ?? now,
         respondedAt: now,
         updatedAt: now,
@@ -130,6 +136,7 @@ export async function submitRsvp(
           id,
           attendance,
         })),
+        extraCompanionCount: input.extraCompanionCount,
       },
     });
   });

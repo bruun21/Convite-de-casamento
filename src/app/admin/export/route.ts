@@ -10,7 +10,14 @@ export async function GET() {
   });
 
   const rows = [
-    ["Nome", "Convite", "Status", "Telefone", "Atualizado em"],
+    [
+      "Nome",
+      "Convite",
+      "Status",
+      "Telefone",
+      "Acompanhantes extras",
+      "Atualizado em",
+    ],
     ...allGuests.map((guest) => [
       guest.name,
       guest.invitation.displayName,
@@ -20,6 +27,7 @@ export async function GET() {
           ? "Recusado"
           : "Pendente",
       guest.invitation.contactPhone,
+      guest.invitation.extraCompanionCount ?? "",
       guest.updatedAt.toISOString(),
     ]),
   ];

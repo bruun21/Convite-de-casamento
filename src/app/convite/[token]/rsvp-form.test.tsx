@@ -18,6 +18,7 @@ describe("RSVP form", () => {
 
     expect(screen.getAllByRole("group", { name: "Pessoa Um" })).toHaveLength(2);
     expect(screen.getAllByRole("group", { name: "Pessoa Dois" })).toHaveLength(2);
-    expect(screen.getAllByRole("radio")).toHaveLength(8);
+    expect(screen.getAllByRole("radio")).toHaveLength(10);
+    expect(screen.getByText(/Além das pessoas listadas/)).toBeInTheDocument();
   });
 });

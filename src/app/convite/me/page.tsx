@@ -31,7 +31,11 @@ export default async function PersonalInvitePage() {
 
   return (
     <ConviteEnvelopeGate recipientName={invitation.displayName}>
-      <InvitationView displayName={invitation.displayName} guests={invitation.guests} />
+      <InvitationView
+        displayName={invitation.displayName}
+        extraCompanionCount={invitation.extraCompanionCount}
+        guests={invitation.guests}
+      />
     </ConviteEnvelopeGate>
   );
 }

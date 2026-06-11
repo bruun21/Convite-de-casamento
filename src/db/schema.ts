@@ -34,6 +34,7 @@ export const invitations = pgTable(
     contactPhone: text("contact_phone"),
     maxGuests: integer("max_guests").notNull(),
     allowPlusOne: boolean("allow_plus_one").notNull().default(false),
+    extraCompanionCount: integer("extra_companion_count"),
     status: invitationStatus("status").notNull().default("pending"),
     firstRespondedAt: timestamp("first_responded_at", { withTimezone: true }),
     respondedAt: timestamp("responded_at", { withTimezone: true }),

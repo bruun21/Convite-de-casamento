@@ -84,6 +84,14 @@ export const weddingConfig = {
   rsvp: {
     deadline: process.env.RSVP_DEADLINE ?? "2026-06-25T23:59:59-04:00",
     deadlineLabel: "25 de junho de 2026",
+    maxExtraCompanions: 5,
+  },
+  gifts: {
+    title: "Um gesto de carinho",
+    description:
+      "Não teremos lista de presentes. Se quiser nos ajudar de outra forma, cada um contribui como preferir — com o coração, no valor que fizer sentido para você.",
+    qrImage: "/qr-code.svg",
+    qrAlt: "QR Code para contribuição",
   },
   content: {
     invitation:

@@ -66,6 +66,7 @@ export default async function InvitationPage({ params, searchParams }: PageProps
     <ConviteEnvelopeGate recipientName={invitation.displayName}>
       <InvitationView
         displayName={invitation.displayName}
+        extraCompanionCount={invitation.extraCompanionCount}
         guests={invitation.guests}
         token={token}
       />

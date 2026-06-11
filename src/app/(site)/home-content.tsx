@@ -29,10 +29,16 @@ interface HomeContentProps {
   displayName?: string;
   guests?: Guest[];
   token?: string;
+  extraCompanionCount?: number | null;
 }
 
-export function HomeContent({ displayName, guests, token }: HomeContentProps = {}) {
-  const { couple, event, content, rsvp, photos } = weddingConfig;
+export function HomeContent({
+  displayName,
+  guests,
+  token,
+  extraCompanionCount = null,
+}: HomeContentProps = {}) {
+  const { couple, event, content, rsvp, photos, gifts } = weddingConfig;
   const isPersonalized = Boolean(displayName && guests);
   const addressee = resolveAddressee(displayName);
 
@@ -255,6 +261,20 @@ export function HomeContent({ displayName, guests, token }: HomeContentProps = {
       </section>
 
       <section className="section border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)]" data-reveal>
+        <p className="eyebrow">Presentes</p>
+        <h2 className="section-title">{gifts.title}</h2>
+        <p className="section-copy">{gifts.description}</p>
+        <div className="mx-auto mt-10 max-w-xs">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            alt={gifts.qrAlt}
+            className="mx-auto h-auto w-full"
+            src={gifts.qrImage}
+          />
+        </div>
+      </section>
+
+      <section className="section border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)]" data-reveal>
         <p className="eyebrow">Confirmação de presença</p>
         <h2 className="section-title">
           {personalizeRsvpTitle(addressee, isPersonalized)}
@@ -266,7 +286,9 @@ export function HomeContent({ displayName, guests, token }: HomeContentProps = {
             </p>
             <div className="mt-10">
               <RsvpForm
+                extraCompanionCount={extraCompanionCount}
                 guests={guests!}
+                maxExtraCompanions={rsvp.maxExtraCompanions}
                 receptionNote={event.reception.receptionNote}
                 token={token}
               />
