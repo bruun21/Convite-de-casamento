@@ -10,15 +10,15 @@ const RECEPTION_NOTE_KEY = "a" as const;
 const receptionNoteOptions = {
   a: {
     label: "Leve e acolhedora",
-    text: "Escolhemos celebrar nosso casamento de um jeito leve e descontraído.\n\nDepois da cerimônia, esperamos todos para um jantar no restaurante, com consumo por adesão. Os noivos terão a alegria de compartilhar o bolo e os docinhos preparados para essa ocasião tão especial.\n\nO mais importante para nós é celebrar ao lado de pessoas queridas.",
+    text: "Escolhemos celebrar nosso casamento de um jeito leve e descontraído.\n\nDepois da cerimônia, nos encontramos no Talavera para um jantar em família. Não há pacote fechado: o cardápio fica à disposição e cada **convidado cuida da própria comanda**, pedindo o que preferir diretamente ao restaurante.\n\nCom muito carinho, compartilhamos com vocês o bolo e os docinhos. Para nós, o mais importante é celebrar ao lado de quem amamos.",
   },
   b: {
     label: "Clara e direta",
-    text: "Após a cerimônia, nos encontramos no Talavera para um jantar em clima descontraído. O consumo é por adesão — cada convidado escolhe o que deseja pedir no restaurante.\n\nCompartilharemos com vocês o bolo e os docinhos desta celebração. Não há pacote fechado nem consumação obrigatória; o que mais desejamos é a sua presença.",
+    text: "Após a cerimônia, nos encontramos no Talavera para um jantar descontraído. O consumo é individual — cada convidado fecha a própria comanda no restaurante, sem pacote fechado nem consumação obrigatória.\n\nOferecemos o bolo e os docinhos com carinho. O que mais desejamos é a sua presença.",
   },
   c: {
     label: "Curta e emocional",
-    text: "Queremos uma festa leve e íntima: jantar com consumo por adesão, sem obrigatoriedade de pacote fechado. Os noivos oferecem o bolo e os docinhos; o restante, cada um escolhe à vontade.\n\nSua companhia é o presente que mais nos importa.",
+    text: "Queremos uma celebração leve e íntima no Talavera: jantar com comanda individual, sem pacote fechado. Cada um pede o que quiser; nós oferecemos o bolo e os docinhos.\n\nSua companhia é o presente que mais nos importa.",
   },
 } as const;
 
@@ -54,6 +54,8 @@ export const weddingConfig = {
       receptionNoteKey: RECEPTION_NOTE_KEY,
       receptionNoteOptions,
       receptionNote: receptionNoteOptions[RECEPTION_NOTE_KEY].text,
+      menuIntro:
+        "O Talavera preparou um cardápio especial para a noite. Vale conferir as opções com antecedência — no dia, cada convidado pede à vontade e acerta a própria comanda com o restaurante.",
       menuUrl: "https://www.dguests.com.br/cardapio/talavera",
       photos: [
         {

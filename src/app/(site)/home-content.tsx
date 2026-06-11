@@ -14,6 +14,8 @@ import {
   resolveAddressee,
 } from "@/lib/personalize";
 
+import { FormattedText } from "@/lib/formatted-text";
+
 import { MapLinks } from "../map-links";
 import { RiceFall } from "../rice-fall";
 import { CameraIcon } from "../camera-icon";
@@ -222,17 +224,14 @@ export function HomeContent({
           placeUrl={event.reception.placeUrl}
         />
         <p className="section-note mx-auto mt-10 max-w-md whitespace-pre-line rounded border border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)] bg-[color:color-mix(in_srgb,var(--color-gold)_6%,var(--color-ivory))] px-6 py-5 text-sm leading-relaxed text-[var(--color-muted)]">
-          {event.reception.receptionNote}
+          <FormattedText text={event.reception.receptionNote} />
         </p>
       </section>
 
       <section className="section border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)]" data-reveal>
         <p className="eyebrow">Cardápio</p>
         <h2 className="section-title">O que teremos por lá</h2>
-        <p className="section-copy">
-          O Talavera preparou um cardápio especial para a noite. Confira as opções antes de
-          chegar e já vá de olho no que vai pedir.
-        </p>
+        <p className="section-copy">{event.reception.menuIntro}</p>
         <div className="mt-10 flex justify-center">
           <a
             href={event.reception.menuUrl}

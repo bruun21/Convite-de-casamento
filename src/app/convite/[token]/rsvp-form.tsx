@@ -2,6 +2,8 @@
 
 import { FormEvent, useState } from "react";
 
+import { FormattedText } from "@/lib/formatted-text";
+
 interface Guest {
   id: string;
   name: string;
@@ -170,7 +172,7 @@ export function RsvpForm({
         </div>
 
         <p className="mb-6 whitespace-pre-line rounded border border-[color:color-mix(in_srgb,var(--color-gold)_20%,transparent)] bg-[color:color-mix(in_srgb,var(--color-gold)_6%,white)] px-5 py-4 text-sm leading-relaxed text-[var(--color-muted)]">
-          {receptionNote}
+          <FormattedText text={receptionNote} />
         </p>
 
         <div className="space-y-8">
