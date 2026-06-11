@@ -8,11 +8,11 @@ interface Guest {
 }
 
 interface InvitationViewProps {
-  displayName: string;
-  guests: Guest[];
+  displayName?: string;
+  guests?: Guest[];
   token?: string;
 }
 
-export function InvitationView({ displayName, guests, token }: InvitationViewProps) {
+export function InvitationView({ displayName, guests, token }: InvitationViewProps = {}) {
   return <HomeContent displayName={displayName} guests={guests} token={token} />;
 }

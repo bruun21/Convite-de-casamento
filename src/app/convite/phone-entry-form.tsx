@@ -1,13 +1,16 @@
 "use client";
 
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+
+const AUTO_SKIP_DELAY_MS = 10_000;
 
 interface PhoneEntryFormProps {
   action: "acesso" | "verificar";
   token?: string;
   title?: string;
   description?: string;
+  autoSkipDelayMs?: number;
 }
 
 export function PhoneEntryForm({
@@ -15,12 +18,35 @@ export function PhoneEntryForm({
   token,
   title = "Acesse seu convite",
   description = "Digite os 4 últimos dígitos do telefone cadastrado para personalizar seu convite.",
+  autoSkipDelayMs = AUTO_SKIP_DELAY_MS,
 }: PhoneEntryFormProps) {
   const router = useRouter();
   const [digits, setDigits] = useState(["", "", "", ""]);
-  const [status, setStatus] = useState<"idle" | "submitting" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "error" | "skipped">("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
+  const statusRef = useRef(status);
+
+  statusRef.current = status;
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      if (statusRef.current === "submitting" || statusRef.current === "skipped") {
+        return;
+      }
+
+      setStatus("skipped");
+
+      if (action === "verificar" && token) {
+        router.push(`/convite/${token}?generico=1`);
+        return;
+      }
+
+      router.push("/informacoes");
+    }, autoSkipDelayMs);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [action, autoSkipDelayMs, router, token]);
 
   function updateDigit(index: number, value: string) {
     const next = value.replace(/\D/g, "").slice(-1);
@@ -121,6 +147,9 @@ export function PhoneEntryForm({
         {title}
       </h1>
       <p className="mt-4 text-sm leading-relaxed text-[var(--color-muted)]">{description}</p>
+      <p className="mt-3 text-xs leading-relaxed text-[var(--color-muted)]">
+        Sem o telefone agora? Em alguns segundos abrimos o convite para você.
+      </p>
 
       <div className="mt-8 flex justify-center gap-3">
         {digits.map((digit, index) => (
@@ -151,10 +180,14 @@ export function PhoneEntryForm({
 
       <button
         className="button-outline mt-8 w-full disabled:cursor-wait disabled:opacity-60"
-        disabled={status === "submitting"}
+        disabled={status === "submitting" || status === "skipped"}
         type="submit"
       >
-        {status === "submitting" ? "Verificando..." : "Abrir meu convite"}
+        {status === "submitting"
+          ? "Verificando..."
+          : status === "skipped"
+            ? "Abrindo convite..."
+            : "Abrir meu convite"}
       </button>
     </form>
   );

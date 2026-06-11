@@ -9,7 +9,7 @@ const CONVITE_ENVELOPE_KEY = "convite-envelope-opened";
 
 interface ConviteEnvelopeGateProps {
   children: React.ReactNode;
-  recipientName: string;
+  recipientName?: string;
 }
 
 export function ConviteEnvelopeGate({ children, recipientName }: ConviteEnvelopeGateProps) {

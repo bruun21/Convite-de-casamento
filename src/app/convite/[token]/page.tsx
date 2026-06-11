@@ -10,8 +10,11 @@ import { PhoneEntryForm } from "../phone-entry-form";
 
 export const dynamic = "force-dynamic";
 
+const GENERIC_ACCESS_PARAM = "generico";
+
 interface PageProps {
   params: Promise<{ token: string }>;
+  searchParams: Promise<{ [GENERIC_ACCESS_PARAM]?: string }>;
 }
 
 export function generateMetadata(): Metadata {
@@ -21,8 +24,9 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default async function InvitationPage({ params }: PageProps) {
+export default async function InvitationPage({ params, searchParams }: PageProps) {
   const { token } = await params;
+  const query = await searchParams;
   const invitation = await getInvitationByToken(token);
 
   if (!invitation) {
@@ -31,8 +35,9 @@ export default async function InvitationPage({ params }: PageProps) {
 
   const verifiedInvitationId = await readInviteAccessInvitationId();
   const isVerified = verifiedInvitationId === invitation.id;
+  const isGenericAccess = query[GENERIC_ACCESS_PARAM] === "1";
 
-  if (!isVerified) {
+  if (!isVerified && !isGenericAccess) {
     return (
       <main className="mx-auto flex min-h-screen max-w-2xl items-center bg-[var(--color-ivory)] px-5 py-14 sm:px-8">
         <PhoneEntryForm
@@ -42,6 +47,14 @@ export default async function InvitationPage({ params }: PageProps) {
           token={token}
         />
       </main>
+    );
+  }
+
+  if (isGenericAccess && !isVerified) {
+    return (
+      <ConviteEnvelopeGate>
+        <InvitationView />
+      </ConviteEnvelopeGate>
     );
   }
 

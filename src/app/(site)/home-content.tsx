@@ -2,6 +2,17 @@ import Link from "next/link";
 
 import { weddingConfig } from "@/config/wedding";
 import { RsvpForm } from "@/app/convite/[token]/rsvp-form";
+import {
+  personalizeAttire,
+  personalizeClosing,
+  personalizeGratitude,
+  personalizeInvitation,
+  personalizePhotosNote,
+  personalizeReceptionDetails,
+  personalizeRsvpIntro,
+  personalizeRsvpTitle,
+  resolveAddressee,
+} from "@/lib/personalize";
 
 import { MapLinks } from "../map-links";
 import { RiceFall } from "../rice-fall";
@@ -23,6 +34,7 @@ interface HomeContentProps {
 export function HomeContent({ displayName, guests, token }: HomeContentProps = {}) {
   const { couple, event, content, rsvp, photos } = weddingConfig;
   const isPersonalized = Boolean(displayName && guests);
+  const addressee = resolveAddressee(displayName);
 
   return (
     <main className="mx-auto min-h-screen max-w-3xl overflow-hidden bg-[var(--color-ivory)] text-[var(--color-ink)]">
@@ -97,7 +109,7 @@ export function HomeContent({ displayName, guests, token }: HomeContentProps = {
       <section className="section" data-reveal>
         <p className="eyebrow">Nossa união</p>
         <h2 className="section-title">Um encontro de almas</h2>
-        <p className="section-copy">{content.invitation}</p>
+        <p className="section-copy">{personalizeInvitation(addressee)}</p>
       </section>
 
       <figure
@@ -116,7 +128,7 @@ export function HomeContent({ displayName, guests, token }: HomeContentProps = {
         <p className="eyebrow">Os noivos</p>
         <h2 className="section-title">Nossa história</h2>
         <p className="section-copy">{content.story}</p>
-        <p className="section-copy mt-5">{content.gratitude}</p>
+        <p className="section-copy mt-5">{personalizeGratitude(addressee)}</p>
       </section>
 
       <section className="section border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)]" data-reveal>
@@ -143,14 +155,14 @@ export function HomeContent({ displayName, guests, token }: HomeContentProps = {
         </div>
         <div>
           <p className="eyebrow">Traje</p>
-          <p>{event.attire}</p>
+          <p>{personalizeAttire(addressee)}</p>
         </div>
       </section>
 
       <section className="section bg-[color:color-mix(in_srgb,var(--color-gold)_7%,transparent)]" data-reveal>
         <p className="eyebrow">A celebração</p>
         <h2 className="section-title">{event.reception.location}</h2>
-        <p className="section-copy">{event.reception.details}</p>
+        <p className="section-copy">{personalizeReceptionDetails(addressee)}</p>
 
         <figure
           className="mx-auto mt-12 max-w-xl border-y border-[color:color-mix(in_srgb,var(--color-gold)_22%,transparent)] py-8 text-center"
@@ -245,12 +257,12 @@ export function HomeContent({ displayName, guests, token }: HomeContentProps = {
       <section className="section border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)]" data-reveal>
         <p className="eyebrow">Confirmação de presença</p>
         <h2 className="section-title">
-          {isPersonalized ? "Você estará conosco?" : "Sua presença é o nosso maior presente"}
+          {personalizeRsvpTitle(addressee, isPersonalized)}
         </h2>
         {isPersonalized ? (
           <>
             <p className="section-copy">
-              Responda por cada pessoa deste convite até {rsvp.deadlineLabel}.
+              {personalizeRsvpIntro(addressee, rsvp.deadlineLabel)}
             </p>
             <div className="mt-10">
               <RsvpForm
@@ -282,10 +294,7 @@ export function HomeContent({ displayName, guests, token }: HomeContentProps = {
           Esta noite não terá fotógrafo profissional — queremos estar de verdade em cada
           momento, sem câmeras no meio.
         </p>
-        <p className="section-copy mt-4">
-          Se você registrar algo especial, adoraríamos guardar. Envie suas fotos direto para
-          nosso álbum compartilhado e elas ficarão com a gente para sempre.
-        </p>
+        <p className="section-copy mt-4">{personalizePhotosNote(addressee)}</p>
         <a
           href={photos.albumUrl}
           target="_blank"
@@ -298,7 +307,7 @@ export function HomeContent({ displayName, guests, token }: HomeContentProps = {
 
       <footer className="px-7 py-24 text-center" data-reveal>
         <p className="font-[family-name:var(--font-playfair)] text-4xl text-[var(--color-gold)] italic">
-          {content.closing}
+          {personalizeClosing(addressee)}
         </p>
         <p className="mt-8 text-xs tracking-[0.25em] uppercase">{couple.names}</p>
       </footer>
