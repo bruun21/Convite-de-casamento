@@ -10,7 +10,14 @@ export function FormattedText({ text }: FormattedTextProps) {
     <>
       {segments.map((segment, index) => {
         if (segment.startsWith("**") && segment.endsWith("**")) {
-          return <strong key={index}>{segment.slice(2, -2)}</strong>;
+          return (
+            <strong
+              className="text-base font-bold text-[var(--color-ink)] sm:text-lg"
+              key={index}
+            >
+              {segment.slice(2, -2)}
+            </strong>
+          );
         }
         return segment;
       })}
