@@ -29,11 +29,8 @@ export function EnvelopeIntro({
   storageKey = 'envelope-opened',
   recipientName,
 }: EnvelopeIntroProps) {
-  const addressee = recipientName?.trim() || 'você';
-  const inviteEyebrow =
-    recipientName?.trim()
-      ? `${recipientName.trim()}, você está convidado`
-      : 'Você está convidado';
+  const trimmedName = recipientName?.trim();
+  const inviteEyebrow = trimmedName ?? "Convite especial";
   const [state, setState] = useState<{
     isOpen: boolean;
     isAnimating: boolean;
@@ -145,7 +142,7 @@ export function EnvelopeIntro({
                   <span className={styles.separador} />
                   <p>
                     <span className={styles.label}>Para: </span>
-                    <span className={styles.nome}>{addressee}</span>
+                    <span className={styles.nome}>{trimmedName ?? "você"}</span>
                   </p>
                 </div>
               </div>

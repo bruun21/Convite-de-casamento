@@ -10,7 +10,7 @@ const RECEPTION_NOTE_KEY = "a" as const;
 const receptionNoteOptions = {
   a: {
     label: "Leve e acolhedora",
-    text: "Escolhemos celebrar nosso casamento de um jeito leve e descontraído.\n\nDepois da cerimônia, nos encontramos no Talavera para um jantar em família. Não há pacote fechado: o cardápio fica à disposição e cada **convidado cuida da própria comanda**, pedindo o que preferir diretamente ao restaurante.\n\nCom muito carinho, compartilhamos com vocês o bolo e os docinhos. Para nós, o mais importante é celebrar ao lado de quem amamos.",
+    text: "Escolhemos celebrar nosso casamento de um jeito leve e descontraído.\n\nDepois da cerimônia, nos encontramos no Talavera para um jantar em família. Não há pacote fechado: o cardápio fica à disposição e cada **convidado cuida da própria comanda,** pedindo o que preferir diretamente ao restaurante.\n\nCom muito carinho, compartilhamos com vocês o bolo e os docinhos. Para nós, o mais importante é celebrar ao lado de quem amamos.",
   },
   b: {
     label: "Clara e direta",
@@ -106,5 +106,7 @@ export const weddingConfig = {
     gratitude:
       "Agradecemos por fazer parte da nossa rede de afeto e por estar conosco nesta data tão significativa.",
     closing: "Esperamos por você!",
+    photosNote:
+      "Se você registrar algo especial, adoraríamos guardar. Envie suas fotos direto para nosso álbum compartilhado e elas ficarão com a gente para sempre.",
   },
 } as const;
