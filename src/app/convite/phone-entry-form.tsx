@@ -27,7 +27,9 @@ export function PhoneEntryForm({
   const inputsRef = useRef<Array<HTMLInputElement | null>>([]);
   const statusRef = useRef(status);
 
-  statusRef.current = status;
+  useEffect(() => {
+    statusRef.current = status;
+  }, [status]);
 
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {

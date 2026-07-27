@@ -6,7 +6,6 @@ import { FormattedText } from "@/lib/formatted-text";
 
 import { MapLinks } from "../map-links";
 import { RiceFall } from "../rice-fall";
-import { CameraIcon } from "../camera-icon";
 
 interface Guest {
   id: string;
@@ -44,7 +43,7 @@ export function HomeContent({
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/logo.svg"
-                alt="Logo do casamento"
+                alt="Logo da formatura"
                 width={180}
                 height={180}
                 className="hero-logo mb-6"
@@ -54,7 +53,7 @@ export function HomeContent({
                 {displayName}
               </h1>
               <p className="mt-6 font-[family-name:var(--font-playfair)] text-2xl sm:text-3xl">
-                {couple.names}
+                Formatura de {couple.firstName}
               </p>
               <p className="mt-4 max-w-sm text-sm leading-relaxed text-[var(--color-muted)]">
                 É uma alegria compartilhar este convite com você.
@@ -63,12 +62,12 @@ export function HomeContent({
           ) : (
             <>
               <p className="hero-eyebrow mb-8 text-sm tracking-[0.35em] text-[var(--color-gold)] uppercase">
-                A & J
+                Festa de Formatura
               </p>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/logo.svg"
-                alt="Logo do casamento"
+                alt="Logo da formatura"
                 width={220}
                 height={220}
                 className="hero-logo mb-8"
@@ -91,23 +90,25 @@ export function HomeContent({
         <div className="photos-grid grid grid-cols-3 gap-2 sm:gap-3" data-reveal>
           <div className="overflow-hidden rounded shadow-md" style={{ aspectRatio: "3/4", transform: "rotate(-2deg)" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/fotos/foto-1.jpg" alt="Adriele e João Paulo" className="h-full w-full object-cover object-top" />
+            <img src={photos.hero[0].src} alt={photos.hero[0].alt} className="h-full w-full object-cover object-top" />
           </div>
           <div className="overflow-hidden rounded shadow-md" style={{ aspectRatio: "3/4" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/fotos/foto-3.jpg" alt="Adriele e João Paulo" className="h-full w-full object-cover object-top" />
+            <img src={photos.hero[1].src} alt={photos.hero[1].alt} className="h-full w-full object-cover object-top" />
           </div>
           <div className="overflow-hidden rounded shadow-md" style={{ aspectRatio: "3/4", transform: "rotate(2deg)" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/fotos/foto-2.jpg" alt="Adriele e João Paulo" className="h-full w-full object-cover object-center" />
+            <img src={photos.hero[2].src} alt={photos.hero[2].alt} className="h-full w-full object-cover object-center" />
           </div>
         </div>
       </section>
 
       <section className="section" data-reveal>
-        <p className="eyebrow">Nossa união</p>
-        <h2 className="section-title">Um encontro de almas</h2>
-        <p className="section-copy">{content.invitation}</p>
+        <p className="eyebrow">Boas-vindas</p>
+        <h2 className="section-title">{content.welcomeTitle}</h2>
+        <p className="section-copy whitespace-pre-line">
+          <FormattedText text={content.welcome} />
+        </p>
       </section>
 
       <figure
@@ -123,20 +124,21 @@ export function HomeContent({
       </figure>
 
       <section className="section" data-reveal>
-        <p className="eyebrow">Os noivos</p>
-        <h2 className="section-title">Nossa história</h2>
+        <p className="eyebrow">Minha trajetória</p>
+        <h2 className="section-title">Até aqui</h2>
         <p className="section-copy">{content.story}</p>
         <p className="section-copy mt-5">{content.gratitude}</p>
       </section>
 
       <section className="section border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)]" data-reveal>
-        <p className="eyebrow">A cerimônia</p>
-        <h2 className="section-title">{event.ceremony.location}</h2>
-        <p className="section-copy">{event.ceremony.address}</p>
+        <p className="eyebrow">O evento</p>
+        <h2 className="section-title">{event.venue.location}</h2>
+        <p className="section-copy">{event.venue.address}</p>
         <MapLinks
-          lat={event.ceremony.lat}
-          lng={event.ceremony.lng}
-          name={event.ceremony.location}
+          lat={event.venue.lat}
+          lng={event.venue.lng}
+          name={`${event.venue.location} - Campina, Belém - PA`}
+          placeUrl={event.venue.placeUrl}
         />
       </section>
 
@@ -149,7 +151,6 @@ export function HomeContent({
         <div>
           <p className="eyebrow">Horário</p>
           <p>{event.time}</p>
-          <p className="text-sm text-[var(--color-muted)]">Após a missa das 19h</p>
         </div>
         <div>
           <p className="eyebrow">Traje</p>
@@ -158,85 +159,21 @@ export function HomeContent({
       </section>
 
       <section className="section bg-[color:color-mix(in_srgb,var(--color-gold)_7%,transparent)]" data-reveal>
-        <p className="eyebrow">A celebração</p>
-        <h2 className="section-title">{event.reception.location}</h2>
-        <p className="section-copy">{event.reception.details}</p>
-
-        <figure
-          className="mx-auto mt-12 max-w-xl border-y border-[color:color-mix(in_srgb,var(--color-gold)_22%,transparent)] py-8 text-center"
-          data-reveal
-        >
-          <p className="eyebrow">Onde tudo começou</p>
-          <blockquote className="mt-5 font-[family-name:var(--font-playfair)] text-xl leading-relaxed italic sm:text-2xl">
-            &ldquo;{event.reception.proposalStory}&rdquo;
-          </blockquote>
-        </figure>
-
-        <div className="photos-grid mt-8 space-y-3" data-reveal>
-          <div
-            className="overflow-hidden rounded-lg shadow-lg"
-            style={{ aspectRatio: "16/10", transform: "rotate(-0.5deg)" }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={event.reception.photos[0].src}
-              alt={event.reception.photos[0].alt}
-              className="h-full w-full object-cover object-center"
-              loading="lazy"
-            />
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            {event.reception.photos.slice(1).map((photo, index) => (
-              <div
-                key={photo.src}
-                className="overflow-hidden rounded-lg shadow-md"
-                style={{
-                  aspectRatio: "4/5",
-                  transform: index === 0 ? "rotate(-1deg)" : "rotate(1deg)",
-                }}
-              >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  className="h-full w-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <MapLinks
-          lat={event.reception.lat}
-          lng={event.reception.lng}
-          name={event.reception.location}
-          placeUrl={event.reception.placeUrl}
-        />
-        <p className="section-note mx-auto mt-10 max-w-md whitespace-pre-line rounded border border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)] bg-[color:color-mix(in_srgb,var(--color-gold)_6%,var(--color-ivory))] px-6 py-5 text-sm leading-relaxed text-[var(--color-muted)]">
-          <FormattedText text={event.reception.receptionNote} />
-        </p>
-      </section>
-
-      <section className="section border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)]" data-reveal>
-        <p className="eyebrow">Cardápio</p>
-        <h2 className="section-title">O que teremos por lá</h2>
-        <p className="section-copy">{event.reception.menuIntro}</p>
-        <div className="mt-10 flex justify-center">
-          <a
-            href={event.reception.menuUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="button-outline"
-          >
-            Ver cardápio completo
-          </a>
-        </div>
+        <p className="eyebrow">Atenção</p>
+        <h2 className="section-title">Observações</h2>
+        <ul className="mx-auto mt-10 max-w-md space-y-4 text-left">
+          {event.notes.map((note) => (
+            <li className="flex gap-4" key={note}>
+              <span className="mt-1 shrink-0 text-[var(--color-gold)]">•</span>
+              <span className="leading-relaxed">{note}</span>
+            </li>
+          ))}
+        </ul>
       </section>
 
       <section className="section" data-reveal>
         <p className="eyebrow">Cronograma</p>
-        <h2 className="section-title">O dia do casamento</h2>
+        <h2 className="section-title">Como vai ser a noite</h2>
         <ol className="mx-auto mt-10 max-w-sm space-y-6 text-left">
           {event.timeline.map((item) => (
             <li className="flex gap-6" key={`${item.time}-${item.label}`}>
@@ -253,6 +190,23 @@ export function HomeContent({
         <p className="eyebrow">Presentes</p>
         <h2 className="section-title">{gifts.title}</h2>
         <p className="section-copy">{gifts.description}</p>
+
+        <ul className="mx-auto mt-10 grid max-w-md grid-cols-2 gap-3">
+          {gifts.options.map((option) => (
+            <li
+              className="rounded border border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)] bg-white px-4 py-5 text-center"
+              key={option.amount}
+            >
+              <p className="text-xs tracking-[0.16em] text-[var(--color-muted)] uppercase">
+                {option.label}
+              </p>
+              <p className="mt-2 font-[family-name:var(--font-playfair)] text-2xl">
+                {option.amount}
+              </p>
+            </li>
+          ))}
+        </ul>
+
         <div className="mx-auto mt-10 max-w-xs">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -261,11 +215,16 @@ export function HomeContent({
             src={gifts.qrImage}
           />
         </div>
+        <p className="section-note mx-auto mt-6 max-w-sm text-sm leading-relaxed text-[var(--color-muted)]">
+          Chave Pix: <strong>{gifts.pixKey}</strong>
+          <br />
+          {gifts.pixName}
+        </p>
       </section>
 
       <section className="section border-y border-[color:color-mix(in_srgb,var(--color-gold)_25%,transparent)]" data-reveal>
         <p className="eyebrow">Confirmação de presença</p>
-        <h2 className="section-title">Você estará conosco?</h2>
+        <h2 className="section-title">Você vai comigo?</h2>
         {isPersonalized ? (
           <>
             <p className="section-copy">
@@ -276,7 +235,6 @@ export function HomeContent({
                 extraCompanionCount={extraCompanionCount}
                 guests={guests!}
                 maxExtraCompanions={rsvp.maxExtraCompanions}
-                receptionNote={event.reception.receptionNote}
                 token={token}
               />
             </div>
@@ -292,26 +250,6 @@ export function HomeContent({
             </Link>
           </>
         )}
-      </section>
-
-      <section className="section" data-reveal>
-        <div className="flex justify-center">
-          <CameraIcon />
-        </div>
-        <h2 className="section-title mt-4">O olhar de vocês</h2>
-        <p className="section-copy">
-          Esta noite não terá fotógrafo profissional — queremos estar de verdade em cada
-          momento, sem câmeras no meio.
-        </p>
-        <p className="section-copy mt-4">{content.photosNote}</p>
-        <a
-          href={photos.albumUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="button-outline mt-10 inline-flex"
-        >
-          Enviar fotos para o álbum
-        </a>
       </section>
 
       <footer className="px-7 py-24 text-center" data-reveal>

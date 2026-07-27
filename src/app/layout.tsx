@@ -22,23 +22,23 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   ),
   icons: { icon: "/logo.svg" },
-  title: "Adriele & João Paulo | 26.06.2026",
+  title: "Suzyellen | Formatura 25.08.2026",
   description:
-    "Convite de casamento de Adriele e João Paulo em Cuiabá, no dia 26 de junho de 2026.",
+    "Convite para a festa de formatura da Suzyellen, em Belém/PA, no dia 25 de agosto de 2026.",
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    title: "Adriele & João Paulo | 26.06.2026",
+    title: "Suzyellen | Formatura 25.08.2026",
     description:
-      "Convite de casamento de Adriele e João Paulo em Cuiabá, no dia 26 de junho de 2026.",
-    siteName: "Casamento Adriele & João Paulo",
+      "Convite para a festa de formatura da Suzyellen, em Belém/PA, no dia 25 de agosto de 2026.",
+    siteName: "Formatura da Suzyellen",
     images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Adriele & João Paulo | 26.06.2026",
+    title: "Suzyellen | Formatura 25.08.2026",
     description:
-      "Convite de casamento de Adriele e João Paulo em Cuiabá, no dia 26 de junho de 2026.",
+      "Convite para a festa de formatura da Suzyellen, em Belém/PA, no dia 25 de agosto de 2026.",
     images: ["/opengraph-image"],
   },
 };

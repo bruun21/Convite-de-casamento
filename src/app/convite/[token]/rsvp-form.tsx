@@ -2,8 +2,6 @@
 
 import { FormEvent, useState } from "react";
 
-import { FormattedText } from "@/lib/formatted-text";
-
 interface Guest {
   id: string;
   name: string;
@@ -14,31 +12,23 @@ interface Guest {
 interface RsvpFormProps {
   token?: string;
   guests: Guest[];
-  receptionNote: string;
   extraCompanionCount?: number | null;
   maxExtraCompanions?: number;
 }
 
 type Attendance = "attending" | "declined";
 
-type GuestResponses = Record<string, { ceremony: Attendance | null; reception: Attendance | null }>;
+type GuestResponses = Record<string, { attendance: Attendance | null }>;
 
 export function RsvpForm({
   token,
   guests,
-  receptionNote,
   extraCompanionCount = null,
   maxExtraCompanions = 5,
 }: RsvpFormProps) {
   const [responses, setResponses] = useState<GuestResponses>(
     Object.fromEntries(
-      guests.map((g) => [
-        g.id,
-        {
-          ceremony: g.attendance ?? null,
-          reception: g.receptionAttendance ?? null,
-        },
-      ])
+      guests.map((g) => [g.id, { attendance: g.attendance ?? null }])
     )
   );
   const [bringingCompanion, setBringingCompanion] = useState<boolean | null>(
@@ -50,20 +40,17 @@ export function RsvpForm({
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
 
-  function setCeremony(guestId: string, value: Attendance) {
-    setResponses((curr) => ({ ...curr, [guestId]: { ...curr[guestId], ceremony: value } }));
-  }
-  function setReception(guestId: string, value: Attendance) {
-    setResponses((curr) => ({ ...curr, [guestId]: { ...curr[guestId], reception: value } }));
+  function setAttendance(guestId: string, value: Attendance) {
+    setResponses((curr) => ({ ...curr, [guestId]: { attendance: value } }));
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const allCeremonyAnswered = guests.every((g) => responses[g.id]?.ceremony != null);
-    if (!allCeremonyAnswered) {
+    const allAnswered = guests.every((g) => responses[g.id]?.attendance != null);
+    if (!allAnswered) {
       setStatus("error");
-      setErrorMessage("Confirme a presença na cerimônia para cada convidado.");
+      setErrorMessage("Confirme a presença para cada convidado.");
       return;
     }
 
@@ -86,8 +73,7 @@ export function RsvpForm({
           website: formData.get("website")?.toString() ?? "",
           guests: guests.map((g) => ({
             id: g.id,
-            attendance: responses[g.id].ceremony,
-            receptionAttendance: responses[g.id].reception ?? undefined,
+            attendance: responses[g.id].attendance,
           })),
           extraCompanionCount: bringingCompanion ? companionCount : 0,
         }),
@@ -129,16 +115,16 @@ export function RsvpForm({
         <input autoComplete="off" id="website" name="website" tabIndex={-1} type="text" />
       </div>
 
-      {/* ── Cerimônia ── */}
+      {/* ── Presença ── */}
       <div>
         <div className="mb-6 flex items-center gap-3">
           <span className="h-px flex-1 bg-[color:color-mix(in_srgb,var(--color-gold)_30%,transparent)]" />
-          <p className="eyebrow">Cerimônia</p>
+          <p className="eyebrow">Presença</p>
           <span className="h-px flex-1 bg-[color:color-mix(in_srgb,var(--color-gold)_30%,transparent)]" />
         </div>
         <div className="space-y-8">
           {guests.map((guest) => (
-            <fieldset key={`ceremony-${guest.id}`}>
+            <fieldset key={`attendance-${guest.id}`}>
               <legend className="mb-3 font-bold">{guest.name}</legend>
               <div className="grid gap-3 sm:grid-cols-2">
                 {(["attending", "declined"] as const).map((value) => (
@@ -147,52 +133,14 @@ export function RsvpForm({
                     key={value}
                   >
                     <input
-                      checked={responses[guest.id]?.ceremony === value}
-                      name={`ceremony-${guest.id}`}
-                      onChange={() => setCeremony(guest.id, value)}
+                      checked={responses[guest.id]?.attendance === value}
+                      name={`attendance-${guest.id}`}
+                      onChange={() => setAttendance(guest.id, value)}
                       required
                       type="radio"
                       value={value}
                     />
-                    <span>{value === "attending" ? "Vou comparecer" : "Não poderei comparecer"}</span>
-                  </label>
-                ))}
-              </div>
-            </fieldset>
-          ))}
-        </div>
-      </div>
-
-      {/* ── Recepção ── */}
-      <div>
-        <div className="mb-6 flex items-center gap-3">
-          <span className="h-px flex-1 bg-[color:color-mix(in_srgb,var(--color-gold)_30%,transparent)]" />
-          <p className="eyebrow">Recepção</p>
-          <span className="h-px flex-1 bg-[color:color-mix(in_srgb,var(--color-gold)_30%,transparent)]" />
-        </div>
-
-        <p className="mb-6 whitespace-pre-line rounded border border-[color:color-mix(in_srgb,var(--color-gold)_20%,transparent)] bg-[color:color-mix(in_srgb,var(--color-gold)_6%,white)] px-5 py-4 text-sm leading-relaxed text-[var(--color-muted)]">
-          <FormattedText text={receptionNote} />
-        </p>
-
-        <div className="space-y-8">
-          {guests.map((guest) => (
-            <fieldset key={`reception-${guest.id}`}>
-              <legend className="mb-3 font-bold">{guest.name}</legend>
-              <div className="grid gap-3 sm:grid-cols-2">
-                {(["attending", "declined"] as const).map((value) => (
-                  <label
-                    className="flex min-h-12 cursor-pointer items-center gap-3 border border-stone-300 px-4 has-checked:border-[var(--color-gold)] has-checked:bg-[color:color-mix(in_srgb,var(--color-gold)_10%,white)]"
-                    key={value}
-                  >
-                    <input
-                      checked={responses[guest.id]?.reception === value}
-                      name={`reception-${guest.id}`}
-                      onChange={() => setReception(guest.id, value)}
-                      type="radio"
-                      value={value}
-                    />
-                    <span>{value === "attending" ? "Vou participar" : "Não participarei"}</span>
+                    <span>{value === "attending" ? "Sim, vou ao evento!" : "Não vou poder ir"}</span>
                   </label>
                 ))}
               </div>

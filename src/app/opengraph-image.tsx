@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Convite de casamento de Adriele e João Paulo";
+export const alt = "Convite para a festa de formatura da Suzyellen";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -28,10 +28,10 @@ export default function OpenGraphImage() {
           marginBottom: 48,
         }}
       >
-        A & J
+        FESTA DE FORMATURA
       </div>
-      <div style={{ display: "flex", fontFamily: "serif", fontSize: 86 }}>
-        Adriele & João Paulo
+      <div style={{ display: "flex", fontFamily: "serif", fontSize: 76 }}>
+        Suzyellen dos Santos Lavareda
       </div>
       <div
         style={{
@@ -42,7 +42,7 @@ export default function OpenGraphImage() {
           marginTop: 48,
         }}
       >
-        26 DE JUNHO DE 2026
+        25 DE AGOSTO DE 2026
       </div>
     </div>,
     size

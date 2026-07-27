@@ -1,112 +1,93 @@
 /**
- * Texto da recepção — altere `RECEPTION_NOTE_KEY` para "a", "b" ou "c".
+ * Configuração central do convite — Festa de Formatura da Suzyellen.
  *
- * a) Leve e acolhedora (sugestão da noiva)
- * b) Clara e direta
- * c) Curta e emocional
+ * Quase todo o conteúdo visível do site vem daqui. Edite os textos, datas e
+ * links abaixo. O nome do export continua `weddingConfig` só para não quebrar
+ * os imports espalhados pelo projeto.
  */
-const RECEPTION_NOTE_KEY = "a" as const;
-
-const receptionNoteOptions = {
-  a: {
-    label: "Leve e acolhedora",
-    text: "Escolhemos celebrar nosso casamento de um jeito leve e descontraído.\n\nDepois da cerimônia, nos encontramos no Talavera para um jantar em família. Não há pacote fechado: o cardápio fica à disposição e cada **convidado cuida da própria comanda,** pedindo o que preferir diretamente ao restaurante.\n\nCom muito carinho, compartilhamos com vocês o bolo e os docinhos. Para nós, o mais importante é celebrar ao lado de quem amamos.",
-  },
-  b: {
-    label: "Clara e direta",
-    text: "Após a cerimônia, nos encontramos no Talavera para um jantar descontraído. O consumo é individual — cada convidado fecha a própria comanda no restaurante, sem pacote fechado nem consumação obrigatória.\n\nOferecemos o bolo e os docinhos com carinho. O que mais desejamos é a sua presença.",
-  },
-  c: {
-    label: "Curta e emocional",
-    text: "Queremos uma celebração leve e íntima no Talavera: jantar com comanda individual, sem pacote fechado. Cada um pede o que quiser; nós oferecemos o bolo e os docinhos.\n\nSua companhia é o presente que mais nos importa.",
-  },
-} as const;
-
 export const weddingConfig = {
+  // A formanda (mantém a chave `couple` por compatibilidade dos imports)
   couple: {
-    bride: "Adriele",
-    groom: "João Paulo",
-    names: "Adriele & João Paulo",
+    firstName: "Suzyellen",
+    monogram: "S",
+    names: "Suzyellen dos Santos Lavareda",
   },
   event: {
-    isoDateTime: "2026-06-26T20:00:00-04:00",
-    fullDate: "26 de junho de 2026",
-    weekday: "Sexta-feira",
-    time: "20h",
-    ceremony: {
-      location: "Paróquia Nossa Senhora Mãe dos Homens",
-      address: "Rua Cândido Mariano, 133 - Quilombo, Cuiabá - MT",
-      lat: -15.5913638,
-      lng: -56.1029378,
-    },
-    reception: {
-      location: "Talavera",
-      address: "Cuiabá - MT",
-      // Coordenadas aproximadas — verificar no Google Maps antes de publicar
-      lat: -15.5962,
-      lng: -56.0834,
+    // Belém/PA usa fuso -03:00 (sem horário de verão)
+    isoDateTime: "2026-08-25T19:00:00-03:00",
+    fullDate: "25 de agosto de 2026",
+    weekday: "Terça-feira",
+    time: "19h às 00h",
+    // Local único da festa
+    venue: {
+      location: "Travessa São Francisco, 60",
+      address: "Próximo à Praça da Bandeira — Campina, Belém/PA",
+      // Coordenadas aproximadas da Praça da Bandeira — confirme no Google Maps
+      lat: -1.4558,
+      lng: -48.5039,
+      // Link de busca pelo endereço (mais confiável que a coordenada)
       placeUrl:
-        "https://www.google.com/maps/place/talavera/data=!4m2!3m1!1s0x939db3d4ce22a5e1:0xd2ef9def626ced97",
+        "https://www.google.com/maps/search/?api=1&query=Travessa+S%C3%A3o+Francisco%2C+60+-+Campina%2C+Bel%C3%A9m+-+PA",
       details:
-        "Após a cerimônia, celebraremos juntos no Talavera — o mesmo lugar onde nosso pedido de casamento aconteceu.",
-      proposalStory:
-        "Foi aqui, à beira da fonte iluminada e sob o jardim à noite, que dissemos sim ao nosso futuro. Por isso escolhemos o Talavera para receber vocês: um lugar que já guarda o começo da nossa história e que, para nós, é inesquecível.",
-      receptionNoteKey: RECEPTION_NOTE_KEY,
-      receptionNoteOptions,
-      receptionNote: receptionNoteOptions[RECEPTION_NOTE_KEY].text,
-      menuIntro:
-        "O Talavera preparou um cardápio especial para a noite. Vale conferir as opções com antecedência — no dia, cada convidado pede à vontade e acerta a própria comanda com o restaurante.",
-      menuUrl: "https://www.dguests.com.br/cardapio/talavera",
-      photos: [
-        {
-          src: "/fotos/talavera/20240608_205731.jpg",
-          alt: "Pedido de casamento à mesa, de mãos dadas, com a fonte iluminada ao fundo",
-        },
-        {
-          src: "/fotos/talavera/20240608_205644.jpg",
-          alt: "Alianças sobre o cardápio do Talavera, no dia do pedido de casamento",
-        },
-        {
-          src: "/fotos/talavera/20240608_215916.jpg",
-          alt: "Casal celebrando o pedido de casamento no jardim do Talavera",
-        },
-      ],
+        "Vai ser uma noite pra celebrar essa conquista ao lado de quem eu amo. Espero você lá!",
     },
-    attire: "Vista-se como preferir — o que celebramos é a sua presença.",
+    attire: "Traje esporte fino",
+    // ⚠️ Observações importantes exibidas em destaque
+    notes: [
+      "O convite é de caráter individual.",
+      "Confirme sua presença aqui pelo site.",
+      "Por gentileza, não usar a cor vermelha.",
+    ],
     timeline: [
-      { time: "20h", label: "Início da cerimônia — após o final da missa das 19h" },
-      { time: "21h", label: "Cumprimentos" },
-      { time: "21h30", label: "Recepção e jantar" },
+      { time: "19h", label: "Recepção dos convidados" },
+      { time: "20h", label: "Início da celebração" },
+      { time: "00h", label: "Encerramento" },
     ],
   },
   photos: {
-    // Crie um álbum no Google Fotos → "Colaborar" → copie o link e cole aqui
-    albumUrl: "https://photos.app.goo.gl/BgiV32hhaCRUTqoJ6",
+    // Fotos da formanda em public/fotos/ (troque os arquivos mantendo os nomes)
+    hero: [
+      { src: "/fotos/foto-1.jpg", alt: "Suzyellen" },
+      { src: "/fotos/foto-3.jpg", alt: "Suzyellen" },
+      { src: "/fotos/foto-2.jpg", alt: "Suzyellen" },
+    ],
   },
   rsvp: {
-    deadline: process.env.RSVP_DEADLINE ?? "2026-06-25T23:59:59-04:00",
-    deadlineLabel: "25 de junho de 2026",
+    deadline: process.env.RSVP_DEADLINE ?? "2026-08-24T23:59:59-03:00",
+    deadlineLabel: "24 de agosto de 2026",
     maxExtraCompanions: 5,
   },
   gifts: {
-    title: "Um gesto de carinho",
+    title: "Lista de Presentes",
     description:
-      "Não teremos lista de presentes. Se quiser nos ajudar de outra forma, cada um contribui como preferir — com o coração, no valor que fizer sentido para você.",
+      "Sua presença já é o maior presente. Mas, se quiser me contemplar de outra forma, você pode contribuir pelo Pix — de forma prática e segura — com o valor que fizer sentido pra você. 🎁",
+    // Chave Pix para receber as contribuições — SUBSTITUA pela chave real
+    pixKey: "SUA_CHAVE_PIX_AQUI",
+    pixName: "Suzyellen dos Santos Lavareda",
     qrImage: "/qr-code.svg",
-    qrAlt: "QR Code para contribuição",
+    qrAlt: "QR Code Pix para contribuição",
+    // Valores sugeridos (edite à vontade)
+    options: [
+      { label: "Vale-presente", amount: "R$ 100" },
+      { label: "Vale-presente", amount: "R$ 70" },
+      { label: "Vale-presente", amount: "R$ 60" },
+      { label: "Vale-presente", amount: "R$ 50" },
+    ],
   },
   content: {
-    invitation:
-      "Convidamos você para testemunhar o momento em que nossas vidas se tornam uma só jornada.",
+    // Mensagem de boas-vindas (topo)
+    welcomeTitle: "Bem-vindos à minha formatura!",
+    welcome:
+      "Olá, queridos amigos e familiares! ❤️\n\nEste site foi criado com muito amor para compartilhar com vocês os detalhes da minha grande e aguardada festa de formatura. 🎓🥂🎉\n\nAqui você também pode me presentear de forma prática e segura e, claro, confirmar a sua presença. Leia com atenção as observações do evento. Espero você lá!",
+    // Frase / dedicatória (substitui o versículo) — troque à vontade
     verse:
-      "Grava-me como selo sobre o teu coração, pois o amor é forte como a morte. Nem as grandes águas podem apagar o amor, nem os rios submergí-lo.",
-    verseReference: "Cânticos 8:6-7",
+      "Cada esforço, cada noite em claro e cada desafio valeram a pena. Que este seja apenas o começo de uma jornada repleta de conquistas.",
+    verseReference: "Suzyellen",
+    // Texto opcional de trajetória / agradecimento
     story:
-      "Nossa história foi escrita com carinho e cumplicidade. Hoje, celebramos não apenas um contrato, mas a promessa de uma vida inteira de respeito, risadas e crescimento mútuo.",
+      "Foram anos de dedicação, aprendizado e muita persistência até chegar aqui. Nada disso teria o mesmo sabor sem as pessoas que caminharam comigo.",
     gratitude:
-      "Agradecemos por fazer parte da nossa rede de afeto e por estar conosco nesta data tão significativa.",
-    closing: "Esperamos por você!",
-    photosNote:
-      "Se você registrar algo especial, adoraríamos guardar. Envie suas fotos direto para nosso álbum compartilhado e elas ficarão com a gente para sempre.",
+      "Obrigada por fazer parte da minha história e por celebrar comigo esta conquista tão especial.",
+    closing: "Espero por você!",
   },
 } as const;
