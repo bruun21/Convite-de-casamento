@@ -47,9 +47,9 @@ export const weddingConfig = {
   photos: {
     // Fotos da formanda em public/fotos/ (troque os arquivos mantendo os nomes)
     hero: [
-      { src: "/fotos/foto-1.jpg", alt: "Suzyellen" },
-      { src: "/fotos/foto-3.jpg", alt: "Suzyellen" },
-      { src: "/fotos/foto-2.jpg", alt: "Suzyellen" },
+      { src: "/fotos/foto-1.webp", alt: "Suzyellen" },
+      { src: "/fotos/foto-3.webp", alt: "Suzyellen" },
+      { src: "/fotos/foto-2.webp", alt: "Suzyellen" },
     ],
   },
   rsvp: {
@@ -64,7 +64,7 @@ export const weddingConfig = {
     // Chave Pix para receber as contribuições — SUBSTITUA pela chave real
     pixKey: "SUA_CHAVE_PIX_AQUI",
     pixName: "Suzyellen dos Santos Lavareda",
-    qrImage: "/qr-code.svg",
+    qrImage: "/qr-code.png",
     qrAlt: "QR Code Pix para contribuição",
     // Valores sugeridos (edite à vontade)
     options: [

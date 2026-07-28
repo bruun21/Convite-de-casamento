@@ -42,7 +42,7 @@ export function HomeContent({
               </p>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/logo.svg"
+                src="/logo.png"
                 alt="Logo da formatura"
                 width={180}
                 height={180}
@@ -66,7 +66,7 @@ export function HomeContent({
               </p>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/logo.svg"
+                src="/logo.png"
                 alt="Logo da formatura"
                 width={220}
                 height={220}

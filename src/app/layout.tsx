@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
   ),
-  icons: { icon: "/logo.svg" },
+  icons: { icon: "/logo.png" },
   title: "Suzyellen | Formatura 25.08.2026",
   description:
     "Convite para a festa de formatura da Suzyellen, em Belém/PA, no dia 25 de agosto de 2026.",

@@ -169,7 +169,7 @@ export function EnvelopeIntro({
                   <div className={styles.lacreBlob}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src="/logo.svg"
+                      src="/logo.png"
                       alt=""
                       width={60}
                       height={60}
