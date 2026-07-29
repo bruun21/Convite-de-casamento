@@ -51,6 +51,7 @@ export const weddingConfig = {
       { src: "/fotos/foto-3.webp", alt: "Suzyellen" },
       { src: "/fotos/foto-2.webp", alt: "Suzyellen" },
     ],
+    closing: { src: "/fotos/foto-4.webp", alt: "Suzyellen" },
   },
   rsvp: {
     deadline: process.env.RSVP_DEADLINE ?? "2026-08-24T23:59:59-03:00",

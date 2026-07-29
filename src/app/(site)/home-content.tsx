@@ -253,6 +253,18 @@ export function HomeContent({
       </section>
 
       <footer className="px-7 py-24 text-center" data-reveal>
+        <div
+          className="mx-auto mb-12 max-w-sm overflow-hidden rounded shadow-lg"
+          style={{ aspectRatio: "3/4" }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={photos.closing.src}
+            alt={photos.closing.alt}
+            className="h-full w-full object-cover object-center"
+            loading="lazy"
+          />
+        </div>
         <p className="font-[family-name:var(--font-playfair)] text-4xl text-[var(--color-gold)] italic">
           {content.closing}
         </p>
