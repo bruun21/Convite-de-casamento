@@ -20,7 +20,7 @@ describe("Home content", () => {
 
     expect(container.querySelector("time[datetime]")).toHaveAttribute(
       "datetime",
-      "2026-08-25T19:00:00-03:00"
+      "2026-08-25T20:00:00-03:00"
     );
   });
 

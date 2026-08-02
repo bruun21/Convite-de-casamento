@@ -14,10 +14,10 @@ export const weddingConfig = {
   },
   event: {
     // Belém/PA usa fuso -03:00 (sem horário de verão)
-    isoDateTime: "2026-08-25T19:00:00-03:00",
+    isoDateTime: "2026-08-25T20:00:00-03:00",
     fullDate: "25 de agosto de 2026",
     weekday: "Terça-feira",
-    time: "19h às 00h",
+    time: "20h às 00h",
     // Local único da festa
     venue: {
       location: "Travessa São Francisco, 60",
@@ -39,7 +39,6 @@ export const weddingConfig = {
       "Por gentileza, não usar a cor vermelha.",
     ],
     timeline: [
-      { time: "19h", label: "Recepção dos convidados" },
       { time: "20h", label: "Início da celebração" },
       { time: "00h", label: "Encerramento" },
     ],
