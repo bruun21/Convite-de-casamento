@@ -49,6 +49,13 @@ a partir deste repositorio (`npm run db:migrate`). O painel
 `Casamento-administracao` consome o mesmo banco e deve usar o mesmo
 `RSVP_TOKEN_PEPPER` para gerar links compativeis com o site.
 
+### ADR-012 - Painel administrativo publico por decisao do responsavel
+
+O painel `/admin` nao exige login por solicitacao explicita do responsavel pelo
+evento. A rota permanece fora de indexacao, telefones sao exibidos apenas pelos
+quatro ultimos digitos e o CSV nao inclui telefone. O risco aceito e que qualquer
+pessoa com a URL pode consultar nomes e cadastrar novos convites.
+
 ## Confirmadas durante a implementacao
 
 ### ADR-008 - Next.js + Drizzle

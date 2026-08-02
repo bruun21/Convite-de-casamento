@@ -3,10 +3,12 @@ import Link from "next/link";
 
 import { getAdminStats, searchInvitations } from "@/lib/admin";
 
+import { AdminCreateForm } from "./admin-create-form";
+
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Administração | Casamento",
+  title: "Administração | Formatura da Suzyellen",
   robots: { index: false, follow: false },
 };
 
@@ -64,6 +66,17 @@ export default async function AdminPage({ searchParams }: PageProps) {
           ))}
         </section>
 
+        <section className="mb-8 rounded-lg bg-white p-5 shadow-sm sm:p-6">
+          <div className="mb-5">
+            <h2 className="text-xl font-bold">Cadastrar convite</h2>
+            <p className="mt-1 text-sm text-stone-600">
+              Depois do cadastro, o convidado acessa o site usando os quatro
+              últimos dígitos do telefone.
+            </p>
+          </div>
+          <AdminCreateForm />
+        </section>
+
         <section className="overflow-hidden rounded-lg bg-white shadow-sm">
           <form className="border-b border-stone-200 p-4" role="search">
             <label className="sr-only" htmlFor="q">
@@ -86,6 +99,7 @@ export default async function AdminPage({ searchParams }: PageProps) {
                 <tr>
                   <th className="px-5 py-3">Convite</th>
                   <th className="px-5 py-3">Status</th>
+                  <th className="px-5 py-3">Telefone</th>
                   <th className="px-5 py-3">Convidados</th>
                   <th className="px-5 py-3">Atualizado</th>
                 </tr>
@@ -98,6 +112,9 @@ export default async function AdminPage({ searchParams }: PageProps) {
                     </td>
                     <td className="px-5 py-4">
                       {statusLabels[invitation.status]}
+                    </td>
+                    <td className="px-5 py-4 font-mono text-sm">
+                      •••• {invitation.contactPhone?.slice(-4) ?? "—"}
                     </td>
                     <td className="px-5 py-4">
                       <ul className="space-y-1">
@@ -124,7 +141,7 @@ export default async function AdminPage({ searchParams }: PageProps) {
                 ))}
                 {invitationList.length === 0 && (
                   <tr>
-                    <td className="px-5 py-10 text-center" colSpan={4}>
+                    <td className="px-5 py-10 text-center" colSpan={5}>
                       Nenhum convite encontrado.
                     </td>
                   </tr>

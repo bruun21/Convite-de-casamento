@@ -2,63 +2,48 @@
 
 ## Contexto
 
-Projeto de convite digital para o casamento de Adriele e Joao Paulo, com deploy
-na Vercel, RSVP no Neon e distribuicao principal por WhatsApp.
+Convite digital da formatura de Suzyellen, publicado na Vercel, com RSVP e
+cadastro de convidados armazenados no Neon.
 
-## Estado
+## Tarefa concluida
 
-- Descoberta inicial concluida.
-- Fundacao criada com Next.js 16.2.9, React 19.2.7 e TypeScript.
-- Tailwind CSS 4.3.0 configurado com tokens visuais em CSS.
-- ESLint, Prettier, typecheck e Vitest configurados.
-- Pagina inicial textual implementada sem uso de imagens.
-- Tres testes de renderizacao e semantica passando.
-- Build de producao passando.
-- Logo oficial fornecida pelo usuario em `assets/Logo_casamentoa.svg`.
-- Nenhum banco, RSVP, admin, autenticacao ou deploy foi implementado.
-- Database local `casamento` criado no container existente `mvp-db-1`.
-- Role local dedicado `casamento_app` criado como proprietario do database.
-- `casa_capital_dev` permanece separado e pertencendo a `postgres`.
+- Painel `/admin` liberado sem login por solicitacao explicita do responsavel.
+- Resumo de confirmados, recusados e pendentes preservado.
+- Cadastro de convite, telefone e ate 20 convidados adicionado ao painel.
+- Telefones exibidos somente pelos quatro ultimos digitos.
+- Conflitos de sufixo de telefone bloqueados para preservar o acesso do
+  convidado.
+- Exportacao CSV mantida sem a coluna de telefone.
+- Rota mantida com `noindex`, `nofollow` e `no-store`.
+
+## Arquivos principais
+
+- `src/app/admin/page.tsx`
+- `src/app/admin/admin-create-form.tsx`
+- `src/app/admin/actions.ts`
+- `src/lib/admin-create.ts`
+- `src/proxy.ts`
+- `src/app/admin/export/route.ts`
 
 ## Validacao
 
-- `npm run format`: passou.
-- `npm run lint`: passou sem warnings.
-- `npm run typecheck`: passou.
-- `npm test`: 1 arquivo e 3 testes passaram.
-- `npm run build`: passou; rota `/` gerada estaticamente.
-- Revisao curta do Claude: nenhum bloqueio encontrado.
+- Typecheck: passou.
+- ESLint: passou sem warnings.
+- Prettier: passou nos arquivos alterados.
+- Vitest: 10 arquivos e 35 testes passaram.
+- Build Next.js de producao: passou.
+- Previa local de `/admin`: estrutura, formulario e tabela carregaram sem
+  autenticacao; nenhum registro ficticio foi gravado no Neon.
 
-## Decisoes
+## Decisoes e riscos
 
-- `Playfair Display` para titulos e `Lato` para textos via `next/font`.
-- Marfim, dourado e tons de texto definidos como CSS custom properties.
-- `assets/Logo_casamentoa.svg` e a unica fonte oficial da logo e nao deve ser
-  redesenhada sem pedido explicito.
-- Imagens e logo nao fazem parte da primeira implementacao da home.
-- Dependencias fixadas nas versoes verificadas para reproducibilidade.
-- O horario usa `-04:00`: `America/Cuiaba` foi verificado como GMT-04:00 em
-  26 de junho de 2026; a sugestao contraria da revisao foi rejeitada.
-- Desenvolvimento e testes usarao PostgreSQL 16 no container `mvp-db-1`, mas
-  somente por meio do database `casamento` e role `casamento_app`.
-- Nenhum recurso Neon deve ser criado sem nova autorizacao do usuario.
-
-## Riscos
-
-- `npm audit --omit=dev` reporta severidade moderada em um PostCSS interno do
-  Next.js estavel. O npm nao oferece uma atualizacao estavel correta; nao foi
-  aplicado downgrade inseguro nem `npm audit fix --force`.
-- As regras de RSVP e informacoes da recepcao ainda estao pendentes.
-
-## Pendencias de negocio
-
-- Atualizar o prazo de RSVP, pois 26 de maio de 2026 ja passou.
-- Confirmar o texto do item de missa.
-- Informar local da recepcao.
-- Definir RSVP por grupo ou por pessoa.
-- Informar lista de presentes e contato da assessoria.
+- ADR-012 registra que o painel e publico e fora de indexacao.
+- Qualquer pessoa com a URL pode consultar nomes e cadastrar convites; esse
+  risco foi aceito explicitamente pelo responsavel.
+- O telefone completo continua armazenado no Neon porque o acesso do convidado
+  usa os quatro ultimos digitos, mas nao e renderizado no painel nem exportado.
 
 ## Proxima tarefa recomendada
 
-Definir as regras P0 de convidados e RSVP antes de criar o schema Drizzle no
-database local `casamento`.
+Adicionar edicao e exclusao controlada de convites caso o responsavel precise
+corrigir cadastros pelo proprio painel.

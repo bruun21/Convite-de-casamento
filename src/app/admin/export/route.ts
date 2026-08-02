@@ -10,14 +10,7 @@ export async function GET() {
   });
 
   const rows = [
-    [
-      "Nome",
-      "Convite",
-      "Status",
-      "Telefone",
-      "Acompanhantes extras",
-      "Atualizado em",
-    ],
+    ["Nome", "Convite", "Status", "Acompanhantes extras", "Atualizado em"],
     ...allGuests.map((guest) => [
       guest.name,
       guest.invitation.displayName,
@@ -26,7 +19,6 @@ export async function GET() {
         : guest.attendance === "declined"
           ? "Recusado"
           : "Pendente",
-      guest.invitation.contactPhone,
       guest.invitation.extraCompanionCount ?? "",
       guest.updatedAt.toISOString(),
     ]),
@@ -35,7 +27,7 @@ export async function GET() {
   return new Response(buildCsv(rows), {
     headers: {
       "Cache-Control": "no-store",
-      "Content-Disposition": 'attachment; filename="convidados-casamento.csv"',
+      "Content-Disposition": 'attachment; filename="convidados-formatura.csv"',
       "Content-Type": "text/csv; charset=utf-8",
       "X-Content-Type-Options": "nosniff",
     },

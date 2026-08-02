@@ -50,10 +50,11 @@ Legenda: `P0` necessario para lancamento, `P1` importante, `P2` evolucao.
 
 ## Administracao
 
-- [x] `P0` Proteger rotas administrativas.
+- [x] `P0` Disponibilizar painel administrativo sem login (decisao ADR-012).
 - [x] `P0` Exibir totais de confirmados, recusas e pendentes.
 - [x] `P0` Criar lista pesquisavel.
 - [x] `P0` Exportar CSV.
+- [x] `P1` Cadastrar novos convites e convidados no painel.
 - [ ] `P1` Editar convites no painel.
 - [ ] `P1` Revogar e regenerar link.
 - [ ] `P2` Historico detalhado por convite.

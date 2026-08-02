@@ -97,12 +97,12 @@ parecer uma apresentacao com slides nem um dashboard de cartoes.
 
 ### Administracao
 
-- Acesso protegido por autenticacao.
+- Acesso publico e fora de indexacao por decisao explicita do responsavel.
 - Resumo de confirmados, recusas, pendentes e total de pessoas.
 - Lista pesquisavel por nome.
 - Exportacao CSV.
-- Criacao e edicao de convites podem ficar para a fase seguinte se a
-  importacao inicial for feita por seed/CSV.
+- Criacao de convites disponivel no painel; edicao completa fica para a fase
+  seguinte.
 
 ### WhatsApp e compartilhamento
 
