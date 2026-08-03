@@ -8,17 +8,30 @@ describe("RSVP form", () => {
     render(
       <RsvpForm
         guests={[
-          { id: "1", name: "Pessoa Um", attendance: null, receptionAttendance: null },
-          { id: "2", name: "Pessoa Dois", attendance: "attending", receptionAttendance: null },
+          {
+            id: "1",
+            name: "Pessoa Um",
+            attendance: null,
+            receptionAttendance: null,
+          },
+          {
+            id: "2",
+            name: "Pessoa Dois",
+            attendance: "attending",
+            receptionAttendance: null,
+          },
         ]}
         token={"a".repeat(32)}
       />
     );
 
-    expect(screen.getByRole("group", { name: "Pessoa Um" })).toBeInTheDocument();
-    expect(screen.getByRole("group", { name: "Pessoa Dois" })).toBeInTheDocument();
-    // 2 guests × 2 options + 2 companion options = 6 radios
-    expect(screen.getAllByRole("radio")).toHaveLength(6);
-    expect(screen.getByText(/Além das pessoas listadas/)).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: "Pessoa Um" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: "Pessoa Dois" })
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("radio")).toHaveLength(4);
+    expect(screen.queryByText("Acompanhantes")).not.toBeInTheDocument();
   });
 });

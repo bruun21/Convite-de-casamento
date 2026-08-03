@@ -86,8 +86,8 @@ parecer uma apresentacao com slides nem um dashboard de cartoes.
 ### RSVP
 
 - O link individual usa token aleatorio, sem expor ID sequencial.
-- O formulario nunca confia em nome ou limite de acompanhantes enviados pelo
-  navegador; esses dados sao carregados no servidor pelo token.
+- O formulario aceita respostas somente para os nomes previamente cadastrados
+  no convite; acompanhantes extras nao sao permitidos.
 - O convidado pode responder por todo o grupo ou por pessoa, conforme a
   configuracao do convite.
 - A resposta deve ser idempotente e atualizavel.
@@ -150,6 +150,6 @@ parecer uma apresentacao com slides nem um dashboard de cartoes.
 - URL da lista de presentes.
 - Numero e contato da assessoria.
 - RSVP por grupo ou individual para cada pessoa do convite.
-- Permitir acompanhantes sem nome previamente cadastrado.
+- Acompanhantes sem nome previamente cadastrado nao sao permitidos.
 - Ate quando respostas podem ser alteradas.
 - Fotografias oficiais e autorizacao de uso.

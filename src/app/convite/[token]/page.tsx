@@ -19,12 +19,15 @@ interface PageProps {
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Seu convite | Adriele & João Paulo",
+    title: "Seu convite | Suzyellen",
     robots: { index: false, follow: false },
   };
 }
 
-export default async function InvitationPage({ params, searchParams }: PageProps) {
+export default async function InvitationPage({
+  params,
+  searchParams,
+}: PageProps) {
   const { token } = await params;
   const query = await searchParams;
   const invitation = await getInvitationByToken(token);
@@ -66,7 +69,6 @@ export default async function InvitationPage({ params, searchParams }: PageProps
     <ConviteEnvelopeGate recipientName={invitation.displayName}>
       <InvitationView
         displayName={invitation.displayName}
-        extraCompanionCount={invitation.extraCompanionCount}
         guests={invitation.guests}
         token={token}
       />

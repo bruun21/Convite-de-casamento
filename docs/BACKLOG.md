@@ -47,6 +47,8 @@ Legenda: `P0` necessario para lancamento, `P1` importante, `P2` evolucao.
 - [x] `P0` Adicionar transacao e trilha de eventos.
 - [x] `P0` Adicionar rate limit e protecao anti-bot.
 - [x] `P0` Criar estados de carregamento, erro e sucesso acessiveis.
+- [x] `P0` Remover acompanhantes extras e limitar o RSVP aos nomes cadastrados.
+- [x] `P0` Atualizar envelope e metadados para a formatura de Suzyellen.
 
 ## Administracao
 

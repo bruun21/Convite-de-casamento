@@ -1,6 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
+import { weddingConfig } from "@/config/wedding";
+
 import { HomeContent } from "./home-content";
 
 describe("Home content", () => {
@@ -33,5 +35,9 @@ describe("Home content", () => {
         name: "Travessa São Francisco, 60",
       })
     ).toBeInTheDocument();
+  });
+
+  it("uses the formatura RSVP deadline even when an old environment value exists", () => {
+    expect(weddingConfig.rsvp.deadline).toBe("2026-08-24T23:59:59-03:00");
   });
 });

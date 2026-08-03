@@ -10,7 +10,7 @@ import { InvitationView } from "../invitation-view";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Seu convite | Adriele & João Paulo",
+  title: "Seu convite | Suzyellen",
   robots: { index: false, follow: false },
 };
 
@@ -33,7 +33,6 @@ export default async function PersonalInvitePage() {
     <ConviteEnvelopeGate recipientName={invitation.displayName}>
       <InvitationView
         displayName={invitation.displayName}
-        extraCompanionCount={invitation.extraCompanionCount}
         guests={invitation.guests}
       />
     </ConviteEnvelopeGate>

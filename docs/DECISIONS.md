@@ -56,6 +56,13 @@ evento. A rota permanece fora de indexacao, telefones sao exibidos apenas pelos
 quatro ultimos digitos e o CSV nao inclui telefone. O risco aceito e que qualquer
 pessoa com a URL pode consultar nomes e cadastrar novos convites.
 
+### ADR-013 - Identidade da formatura e RSVP sem acompanhantes extras
+
+O envelope usa somente o nome e o monograma de Suzyellen, a data de 25 de
+agosto de 2026 e Belem/PA. O RSVP aceita respostas apenas para as pessoas
+previamente cadastradas no convite, sem acompanhantes extras. O prazo de
+confirmacao e 24 de agosto de 2026.
+
 ## Confirmadas durante a implementacao
 
 ### ADR-008 - Next.js + Drizzle

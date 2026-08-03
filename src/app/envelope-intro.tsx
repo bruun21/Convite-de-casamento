@@ -122,22 +122,22 @@ export function EnvelopeIntro({
                 <div className={styles.seloPostal} aria-hidden="true">
                   <span className={styles.seloOrnamento}>♡</span>
                   <span className={styles.seloData}>
-                    26.06
+                    25.08
                     <br />
                     2026
                   </span>
                 </div>
 
                 <div className={styles.carimbo} aria-hidden="true">
-                  Cuiabá
+                  Belém
                   <br />
-                  • MT •
+                  • PA •
                 </div>
 
                 <div className={styles.textos}>
                   <p>
                     <span className={styles.label}>De: </span>
-                    <span className={styles.nome}>Adriele &amp; João Paulo</span>
+                    <span className={styles.nome}>Suzyellen</span>
                   </p>
                   <span className={styles.separador} />
                   <p>
@@ -176,7 +176,7 @@ export function EnvelopeIntro({
                       className={styles.lacreLogo}
                       onError={() => setLogoFailed(true)}
                     />
-                    <span className={styles.lacreMonograma}>A&amp;J</span>
+                    <span className={styles.lacreMonograma}>S</span>
                   </div>
                   <div className={styles.frag} style={{ top: '20%', left: '70%' }} />
                   <div className={styles.frag} style={{ top: '60%', left: '15%' }} />
@@ -186,12 +186,11 @@ export function EnvelopeIntro({
                 <div className={styles.carta} aria-hidden="true">
                   <div className={styles.cartaConteudo}>
                     <p className={styles.cartaEyebrow}>{inviteEyebrow}</p>
-                    <h2 className={styles.cartaTitulo}>Adriele &amp; João Paulo</h2>
-                    <p className={styles.cartaSubtitulo}>26 de junho de 2026 — Cuiabá, MT</p>
+                    <h2 className={styles.cartaTitulo}>Suzyellen</h2>
+                    <p className={styles.cartaSubtitulo}>25 de agosto de 2026 — Belém, PA</p>
                     <div className={styles.cartaDeco} />
                     <p className={styles.cartaTexto}>
-                      Convidamos você para testemunhar o momento em que nossas vidas se tornam uma
-                      só jornada.
+                      Convido você para celebrar comigo essa conquista tão especial.
                     </p>
                   </div>
                 </div>
@@ -200,7 +199,7 @@ export function EnvelopeIntro({
           </div>
 
           <div className={styles.hintGroup} aria-hidden="true">
-            <p className={styles.hintEyebrow}>A &amp; J</p>
+            <p className={styles.hintEyebrow}>S</p>
             <p className={styles.hint}>Toque para abrir</p>
           </div>
         </button>

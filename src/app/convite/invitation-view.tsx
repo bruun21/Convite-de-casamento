@@ -11,21 +11,14 @@ interface InvitationViewProps {
   displayName?: string;
   guests?: Guest[];
   token?: string;
-  extraCompanionCount?: number | null;
 }
 
 export function InvitationView({
   displayName,
   guests,
   token,
-  extraCompanionCount = null,
 }: InvitationViewProps = {}) {
   return (
-    <HomeContent
-      displayName={displayName}
-      extraCompanionCount={extraCompanionCount}
-      guests={guests}
-      token={token}
-    />
+    <HomeContent displayName={displayName} guests={guests} token={token} />
   );
 }

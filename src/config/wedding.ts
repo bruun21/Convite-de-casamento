@@ -53,9 +53,8 @@ export const weddingConfig = {
     closing: { src: "/fotos/foto-4.webp", alt: "Suzyellen" },
   },
   rsvp: {
-    deadline: process.env.RSVP_DEADLINE ?? "2026-08-24T23:59:59-03:00",
+    deadline: "2026-08-24T23:59:59-03:00",
     deadlineLabel: "24 de agosto de 2026",
-    maxExtraCompanions: 5,
   },
   gifts: {
     title: "Lista de Presentes",

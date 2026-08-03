@@ -18,14 +18,12 @@ interface HomeContentProps {
   displayName?: string;
   guests?: Guest[];
   token?: string;
-  extraCompanionCount?: number | null;
 }
 
 export function HomeContent({
   displayName,
   guests,
   token,
-  extraCompanionCount = null,
 }: HomeContentProps = {}) {
   const { couple, event, content, rsvp, photos, gifts } = weddingConfig;
   const isPersonalized = Boolean(displayName && guests);
@@ -231,12 +229,7 @@ export function HomeContent({
               Responda por cada pessoa deste convite até {rsvp.deadlineLabel}.
             </p>
             <div className="mt-10">
-              <RsvpForm
-                extraCompanionCount={extraCompanionCount}
-                guests={guests!}
-                maxExtraCompanions={rsvp.maxExtraCompanions}
-                token={token}
-              />
+              <RsvpForm guests={guests!} token={token} />
             </div>
           </>
         ) : (
