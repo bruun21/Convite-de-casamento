@@ -60,8 +60,8 @@ export const weddingConfig = {
     title: "Lista de Presentes",
     description:
       "Sua presença já é o maior presente. Mas, se quiser me contemplar de outra forma, você pode contribuir pelo Pix — de forma prática e segura — com o valor que fizer sentido pra você. 🎁",
-    // Chave Pix para receber as contribuições — SUBSTITUA pela chave real
-    pixKey: "SUA_CHAVE_PIX_AQUI",
+    // Chave Pix confirmada pelo responsável pelo convite
+    pixKey: "91 989930440",
     pixName: "Suzyellen dos Santos Lavareda",
     qrImage: "/qr-code.png",
     qrAlt: "QR Code Pix para contribuição",

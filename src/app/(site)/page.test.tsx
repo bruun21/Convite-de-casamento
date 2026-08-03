@@ -40,4 +40,8 @@ describe("Home content", () => {
   it("uses the formatura RSVP deadline even when an old environment value exists", () => {
     expect(weddingConfig.rsvp.deadline).toBe("2026-08-24T23:59:59-03:00");
   });
+
+  it("uses the approved Pix key", () => {
+    expect(weddingConfig.gifts.pixKey).toBe("91 989930440");
+  });
 });

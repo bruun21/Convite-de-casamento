@@ -34,7 +34,7 @@ Legenda: `P0` necessario para lancamento, `P1` importante, `P2` evolucao.
 - [x] `P0` Implementar encerramento.
 - [x] `P0` Otimizar fontes e layout sem fotografias nesta fase.
 - [x] `P1` Respeitar reduced motion; animacoes ficam opcionais.
-- [ ] `P1` Adicionar lista de presentes quando aprovada.
+- [x] `P1` Adicionar lista de presentes com a chave Pix aprovada.
 
 ## RSVP
 

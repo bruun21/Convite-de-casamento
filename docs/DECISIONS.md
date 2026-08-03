@@ -63,6 +63,11 @@ agosto de 2026 e Belem/PA. O RSVP aceita respostas apenas para as pessoas
 previamente cadastradas no convite, sem acompanhantes extras. O prazo de
 confirmacao e 24 de agosto de 2026.
 
+### ADR-014 - Chave Pix da formatura
+
+A chave Pix exibida na lista de presentes e `91 989930440`, conforme
+confirmacao explicita do responsavel pelo convite.
+
 ## Confirmadas durante a implementacao
 
 ### ADR-008 - Next.js + Drizzle
